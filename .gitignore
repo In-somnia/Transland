@@ -1,9 +1,19 @@
+# IntelliJ project files #
+.idea
+*.iml
+classes
+out
+build
 *.class
 
-# idea
-out
-.idea
-**/*.iml
+# Eclipse project files #
+.classpath
+.project
+.settings
+
+# Gradle #
+target
+gradlew*
 
 # Package Files #
 *.jar
