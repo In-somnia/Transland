@@ -9,6 +9,6 @@ import java.util.List;
 public interface TranslatorDao {
     long create(Translator translator);
     Translator get(long id);
-    void remove(Translator translator);
+    void remove(long id);
     List<Translator> getAll();
 }

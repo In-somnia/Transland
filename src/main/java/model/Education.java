@@ -14,4 +14,8 @@ public class Education {
     private String department;
     private boolean educationType;
     private int graduationYear;
+
+    public boolean getEducationType() {
+        return educationType;
+    }
 }
