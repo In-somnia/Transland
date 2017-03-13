@@ -13,8 +13,11 @@ import java.util.List;
 
 public class H2TranslatorDao implements TranslatorDao {
 
-    @Resource(name = "jdbc/TestDB")
     private DataSource dataSource;
+
+    public H2TranslatorDao(DataSource dataSource) {
+        this.dataSource = dataSource;
+    }
 
     @Override
     public Translator get(long id) {

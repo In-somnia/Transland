@@ -1,6 +1,7 @@
 package controllers;
 
 
+import dao.DaoManager;
 import dao.h2.H2DaoManager;
 import model.Education;
 import model.EducationForm;
@@ -18,12 +19,12 @@ import java.io.IOException;
 @WebServlet("/TranslatorRegistrationController")
 public class TranslatorRegistrationController extends HttpServlet {
 
-    private H2DaoManager h2DaoManager;
+    private DaoManager daoManager;
     public static final String USER_ID = "id";
 
     @Override
     public void init(ServletConfig config) throws ServletException {
-        h2DaoManager = (H2DaoManager)config.getServletContext().getAttribute("H2DaoManager");
+        daoManager = (DaoManager)config.getServletContext().getAttribute("DaoManager");
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -42,92 +43,75 @@ public class TranslatorRegistrationController extends HttpServlet {
         String info = request.getParameter("info").trim();
         String password = request.getParameter("password").trim();
 
-        boolean[] validationList = new boolean[13];
-        int counter = 0;
+        boolean validationCheck = false;
 
-        if (!(firstName.isEmpty()) && firstName.length() >= 1 && firstName.length() <= 50)
+
+        if (firstName.isEmpty() || firstName.length() < 1 || firstName.length() > 50)
         {
-            validationList[counter] = true;
-            counter++;
+            validationCheck = true;
+
         }
 
-        if (!(lastName.isEmpty()) && lastName.length() >= 1 && lastName.length() <= 50)
+        if (firstName.isEmpty() || firstName.length() < 1 || firstName.length() > 50)
         {
-            validationList[counter] = true;
-            counter++;
+            validationCheck = true;
         }
 
-        if (!(middleName.isEmpty()) && middleName.length() >= 1 && middleName.length() <= 50)
+        if (firstName.isEmpty() || firstName.length() < 1 || firstName.length() > 50)
         {
-            validationList[counter] = true;
-            counter++;
+            validationCheck = true;
         }
 
-        if (!(city.isEmpty()) && city.length() >= 1 && city.length() <= 50)
+        if (!city.isEmpty() || city.length() < 1 || city.length() > 50)
         {
-            validationList[counter] = true;
-            counter++;
+            validationCheck = true;
         }
 
-        if (!(cell.isEmpty()) && cell.length() >= 1 && cell.length() <= 50)
+        if (!cell.isEmpty() || cell.length() < 1 || cell.length() > 50)
         {
-            validationList[counter] = true;
-            counter++;
+            validationCheck = true;
         }
 
-        if (!(email.isEmpty()) && email.length() >= 1 && email.length() <= 100)
+        if (!email.isEmpty() || email.length() < 1 && email.length() > 100)
         {
-            validationList[counter] = true;
-            counter++;
+            validationCheck = true;
         }
 
-        if (!(university.isEmpty()) && university.length() >= 1 && university.length() <= 50)
+        if (!university.isEmpty() || university.length() < 1 || university.length() > 50)
         {
-            validationList[counter] = true;
-            counter++;
+            validationCheck = true;
         }
 
-        if (!(department.isEmpty()) && department.length() >= 1 && department.length() <= 50)
+        if (!department.isEmpty() || department.length() < 1 || department.length() > 50)
         {
-            validationList[counter] = true;
-            counter++;
+            validationCheck = true;
         }
 
-        if (educationType == EducationForm.valueOf("FULL_TIME") || educationType == EducationForm.valueOf("PART_TIME"))
+        if (graduationYear < 1950 || graduationYear > 2021)
         {
-            validationList[counter] = true;
-            counter++;
+            validationCheck = true;
         }
 
-        if (graduationYear >= 1950 && graduationYear <= 2021)
+        if (experience.isEmpty() || department.length() < 1 || department.length() > 20)
         {
-            validationList[counter] = true;
-            counter++;
+            validationCheck = true;
         }
 
-        if (!(experience.isEmpty()) && department.length() >= 1 && department.length() <= 20)
+        if (info.length() > 250)
         {
-            validationList[counter] = true;
-            counter++;
+            validationCheck = true;
+        }
+        if (password.isEmpty() || password.length() < 6 || password.length() > 50)
+        {
+            validationCheck = true;
         }
 
-        if (info.length() <= 250)
-        {
-            validationList[counter] = true;
-            counter++;
-        }
-        if (!(password.isEmpty() && password.length() >= 6 && password.length() <= 50))
-        {
-            validationList[counter] = true;
-        }
 
-        for (boolean checkResult : validationList)
-        {
-            if (!checkResult)
+            if (!validationCheck)
             {
                 request.getRequestDispatcher("translatorRegistrationPage.jsp").forward(request, response);
             }
-        }
+
 
         Translator translator = new Translator();
         translator.setFirstName(firstName);
@@ -150,7 +134,7 @@ public class TranslatorRegistrationController extends HttpServlet {
         translator.setInfo(info);
         translator.setPassword(password);
 
-        long id = h2DaoManager.getTranslatorDao().create(translator);
+        long id = daoManager.getTranslatorDao().create(translator);
         request.setAttribute(USER_ID, id);
         request.getRequestDispatcher("authorizationPage.jsp").forward(request, response);
     }
