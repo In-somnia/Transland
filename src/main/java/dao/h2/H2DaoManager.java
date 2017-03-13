@@ -1,6 +1,7 @@
 package dao.h2;
 
 import dao.DaoManager;
+import dao.TranslatorDao;
 
 import javax.sql.DataSource;
 
@@ -16,5 +17,10 @@ public class H2DaoManager implements DaoManager {
     @Override
     public H2TranslatorDao getTranslatorDao() {
         return new H2TranslatorDao(dataSource);
+    }
+
+    @Override
+    public H2AuthorizationDao getAuthorizationDao() {
+        return new H2AuthorizationDao(dataSource);
     }
 }

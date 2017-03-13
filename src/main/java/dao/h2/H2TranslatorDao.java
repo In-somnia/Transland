@@ -5,7 +5,6 @@ import model.Education;
 import model.EducationForm;
 import model.Translator;
 
-import javax.annotation.Resource;
 import javax.sql.DataSource;
 import java.sql.*;
 import java.util.List;

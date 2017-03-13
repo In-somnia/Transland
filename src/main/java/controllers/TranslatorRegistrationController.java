@@ -2,7 +2,6 @@ package controllers;
 
 
 import dao.DaoManager;
-import dao.h2.H2DaoManager;
 import model.Education;
 import model.EducationForm;
 import model.Translator;
@@ -72,7 +71,7 @@ public class TranslatorRegistrationController extends HttpServlet {
             validationCheck = true;
         }
 
-        if (!email.isEmpty() || email.length() < 1 && email.length() > 100)
+        if (!email.isEmpty() || email.length() < 1 || email.length() > 100)
         {
             validationCheck = true;
         }
