@@ -85,5 +85,9 @@ textarea {
     margin-bottom: 0;
 }
 .error {
+
     color: red;
+    font-size: 20px;
+
+
 }

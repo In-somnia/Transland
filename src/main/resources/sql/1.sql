@@ -2,7 +2,7 @@ CREATE TABLE Education(
   id BIGINT AUTO_INCREMENT PRIMARY KEY,
   university VARCHAR(50) NOT NULL,
   department VARCHAR(50) NOT NULL,
-  education_type BOOL NOT NULL,
+  education_type VARCHAR(50) NOT NULL,
   graduation_date INT NOT NULL
 );
 
@@ -15,10 +15,10 @@ CREATE TABLE Translator(
   city VARCHAR(50) NOT NULL,
   cell VARCHAR(50) NOT NULL,
   email VARCHAR(100) NOT NULL,
-  password VARCHAR(50) NOT NULL,
   education_id BIGINT NOT NULL,
   experience VARCHAR(20) NOT NULL,
   info VARCHAR(250),
+  password VARCHAR(50) NOT NULL,
 
   FOREIGN KEY (education_id) REFERENCES Education(id),
   UNIQUE (id),

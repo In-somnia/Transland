@@ -18,7 +18,7 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 @WebListener
-public class dbInit implements ServletContextListener {
+public class DbInit implements ServletContextListener {
 
     @Resource(name = "jdbc/TestDB")
     private DataSource dataSource;

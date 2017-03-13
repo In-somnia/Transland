@@ -2,6 +2,7 @@ package dao.h2;
 
 import dao.TranslatorDao;
 import model.Education;
+import model.EducationForm;
 import model.Translator;
 
 import javax.annotation.Resource;
@@ -50,7 +51,7 @@ public class H2TranslatorDao implements TranslatorDao {
                             Education education = new Education();
                             education.setUniversity(innerResultSet.getString(2));
                             education.setDepartment(innerResultSet.getString(3));
-                            education.setEducationType(innerResultSet.getBoolean(4));
+                            education.setEducationType(EducationForm.valueOf(innerResultSet.getString(4)));
                             education.setGraduationYear(innerResultSet.getInt(5));
 
                             translator.setEducation(education);
@@ -79,7 +80,7 @@ public class H2TranslatorDao implements TranslatorDao {
                     PreparedStatement.RETURN_GENERATED_KEYS)) {
             preparedStatement.setString(1, translator.getEducation().getUniversity());
             preparedStatement.setString(2, translator.getEducation().getDepartment());
-            preparedStatement.setBoolean(3, translator.getEducation().getEducationType());
+            preparedStatement.setObject(3, translator.getEducation().getEducationType().ordinal() + 1);
             preparedStatement.setInt(4, translator.getEducation().getGraduationYear());
 
             preparedStatement.executeUpdate();

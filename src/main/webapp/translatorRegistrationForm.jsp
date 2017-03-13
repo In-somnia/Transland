@@ -20,8 +20,8 @@
                 <div class="half-width">
                     <input type="text" id="ed-form-input" required list="education-form" name="edForm" index="9" placeholder="Форма обучения:"><span id="er9" class="error hidden"></span>
                     <datalist id="education-form">
-                        <option value="full-time">
-                        <option value="part-time">
+                        <option value="FULL_TIME">
+                        <option value="PART_TIME">
                     </datalist>
                 </div>
                 <div class="half-width">
@@ -79,6 +79,7 @@
         }
     }
     document.getElementById("submit").onclick = checkAndSubmit;
+
 
 </script>
 <script type="text/javascript" src="scripts/regValidation.js"></script>
