@@ -96,7 +96,7 @@ var valiData = [
         index: 12,
         id: "password",
         name: "password",
-        pattern: /[A-za-z0-9]{6,49}/,
+        pattern: /[A-za-z0-9]{6,50}/,
         page: 2,
         errorMessage: "Латиница, цифры не менее 6 символов"
     }
