@@ -19,15 +19,15 @@ public class H2TranslatorDao implements TranslatorDao {
     }
 
     @Override
-    public Translator get(String email) {
+    public Translator get(long id) {
 
         Translator translator = null;
 
-        String preparedQuery = "SELECT * FROM Translator WHERE email=?";
+        String preparedQuery = "SELECT * FROM Translator WHERE id=?";
 
         try (Connection connection = dataSource.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(preparedQuery)) {
-            preparedStatement.setString(1, email);
+            preparedStatement.setLong(1, id);
             ResultSet rs = preparedStatement.executeQuery();
 
             if (rs != null) {

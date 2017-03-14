@@ -17,9 +17,9 @@ public class H2AuthorizationDao implements AuthorizationDao {
     }
 
     @Override
-    public boolean checkCredentials(String email, String password) {
-        String preparedQuery = "SELECT password FROM Translator WHERE email=?";
-        boolean result = false;
+    public long checkCredentials(String email, String password) {
+        String preparedQuery = "SELECT password, id FROM Translator WHERE email=?";
+        long result = 0;
         try (Connection connection = dataSource.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(preparedQuery)) {
             preparedStatement.setString(1, email);
@@ -30,7 +30,7 @@ public class H2AuthorizationDao implements AuthorizationDao {
                 {
                     if(rs.getString(1).equals(password))
                     {
-                        result = true;
+                        result = rs.getLong(2);
                     }
                 }
             }

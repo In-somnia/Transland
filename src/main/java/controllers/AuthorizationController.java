@@ -2,7 +2,6 @@ package controllers;
 
 
 import dao.DaoManager;
-import model.Translator;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -49,13 +48,11 @@ public class AuthorizationController extends HttpServlet {
             req.getRequestDispatcher("authorizationPage.jsp").forward(req, resp);
         }
 
-        boolean translatorCheck = daoManager.getAuthorizationDao().checkCredentials(login, password);
-        if (translatorCheck) {
+        long userId = daoManager.getAuthorizationDao().checkCredentials(login, password);
+        if (userId != 0) {
 
-            req.getSession().setAttribute("authorized", translatorCheck);
-            Translator translator = daoManager.getTranslatorDao().get(login);
-            req.getSession().setAttribute("userData", translator);
-            req.getRequestDispatcher("/WEB-INF/translatorProfilePage.jsp").forward(req, resp);
+            req.getSession().setAttribute("authorized", userId);
+            req.getRequestDispatcher("/TranslatorProfileController").forward(req, resp);
 
         } else {
             req.getRequestDispatcher("authorizationPage.jsp").forward(req, resp);
