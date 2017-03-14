@@ -9,8 +9,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Translator {
 
-    public static String FIRST_NAME_KEY = "firstname";
-
     private long id;
     private String firstName;
     private String lastName;
@@ -19,10 +17,10 @@ public class Translator {
     private String city;
     private String cell;
     private String email;
-    private String password;
     private Education education;
+    private String password;
+
     private String experience;
-    private String topics;
     private String info;
 
     public void setIsTranslator(boolean isTranslator) {

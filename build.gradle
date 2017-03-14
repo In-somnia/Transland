@@ -33,6 +33,9 @@ dependencies {
 
     testCompile 'org.junit.jupiter:junit-jupiter-api:+',
             'org.hamcrest:java-hamcrest:+'
+
+    compile 'javax.servlet.jsp.jstl:javax.servlet.jsp.jstl-api:+'
+    compile 'taglibs:standard:+'
 }
 
 task wrapper(type: Wrapper) {

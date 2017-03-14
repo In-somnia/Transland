@@ -19,15 +19,15 @@ public class H2TranslatorDao implements TranslatorDao {
     }
 
     @Override
-    public Translator get(long id) {
+    public Translator get(String email) {
 
         Translator translator = null;
 
-        String preparedQuery = "SELECT * FROM Translator WHERE id=?";
+        String preparedQuery = "SELECT * FROM Translator WHERE email=?";
 
         try (Connection connection = dataSource.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(preparedQuery)) {
-            preparedStatement.setLong(1, id);
+            preparedStatement.setString(1, email);
             ResultSet rs = preparedStatement.executeQuery();
 
             if (rs != null) {
@@ -41,16 +41,17 @@ public class H2TranslatorDao implements TranslatorDao {
                     translator.setCity(rs.getString(6));
                     translator.setCell(rs.getString(7));
                     translator.setEmail(rs.getString(8));
-                    translator.setPassword(rs.getString(9));
+
                     PreparedStatement innerPreparedStatement = connection.prepareStatement(
                             "SELECT * FROM Education " +
                                     "WHERE id=?");
-                    innerPreparedStatement.setLong(1, rs.getLong(10));
+                    innerPreparedStatement.setLong(1, rs.getLong(9));
                     ResultSet innerResultSet = innerPreparedStatement.executeQuery();
 
                     if (innerResultSet != null) {
                         while (innerResultSet.next()) {
                             Education education = new Education();
+                            education.setId(innerResultSet.getLong(1));
                             education.setUniversity(innerResultSet.getString(2));
                             education.setDepartment(innerResultSet.getString(3));
                             education.setEducationType(EducationForm.valueOf(innerResultSet.getString(4)));
@@ -59,7 +60,7 @@ public class H2TranslatorDao implements TranslatorDao {
                             translator.setEducation(education);
                         }
                     }
-
+                    translator.setPassword(rs.getString(10));
                     translator.setExperience(rs.getString(11));
                     translator.setInfo(rs.getString(12));
                 }

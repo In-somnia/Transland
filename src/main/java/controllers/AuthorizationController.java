@@ -2,6 +2,7 @@ package controllers;
 
 
 import dao.DaoManager;
+import model.Translator;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -28,8 +29,7 @@ public class AuthorizationController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-        resp.setContentType("text/html");
+        req.setCharacterEncoding("utf-8");
         String login = req.getParameter("email");
         String password = req.getParameter("password");
         boolean invalidDataCheck = false;
@@ -51,12 +51,14 @@ public class AuthorizationController extends HttpServlet {
 
         boolean translatorCheck = daoManager.getAuthorizationDao().checkCredentials(login, password);
         if (translatorCheck) {
-            req.setAttribute("success", translatorCheck);
+
+            req.getSession().setAttribute("authorized", translatorCheck);
+            Translator translator = daoManager.getTranslatorDao().get(login);
+            req.getSession().setAttribute("userData", translator);
             req.getRequestDispatcher("/WEB-INF/translatorProfilePage.jsp").forward(req, resp);
 
         } else {
             req.getRequestDispatcher("authorizationPage.jsp").forward(req, resp);
-
         }
     }
 }

@@ -16,9 +16,10 @@ CREATE TABLE Translator(
   cell VARCHAR(50) NOT NULL,
   email VARCHAR(100) NOT NULL,
   education_id BIGINT NOT NULL,
+  password VARCHAR(50) NOT NULL,
   experience VARCHAR(20) NOT NULL,
   info VARCHAR(250),
-  password VARCHAR(50) NOT NULL,
+
 
   FOREIGN KEY (education_id) REFERENCES Education(id),
   UNIQUE (id),
