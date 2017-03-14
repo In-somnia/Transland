@@ -44,9 +44,9 @@ public class AuthorizationController extends HttpServlet {
             invalidDataCheck = true;
         }
 
-        if (!invalidDataCheck)
+        if (invalidDataCheck)
         {
-            req.getRequestDispatcher("AuthorizationPage.jsp").forward(req, resp);
+            req.getRequestDispatcher("authorizationPage.jsp").forward(req, resp);
         }
 
         boolean translatorCheck = daoManager.getAuthorizationDao().checkCredentials(login, password);

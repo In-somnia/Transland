@@ -14,29 +14,28 @@
         </form>
     </div>
     <div class="button">
+        <input class="button" type="submit" value="Зарегистрироваться" disabled="disabled" style="display: none"/>
         <button class="button" id="enter-button" type="button">Войти</button>
     </div>
 </body>
 </html>
 <script>
+    function checkAuthValid(){
+        if (checkAuthMap["email"] == true && checkAuthMap["password"] == true) {
+            return true;
+        }
+        return false;
+    }
 
+    function submitAuth() {
+
+        if (checkAuthValid())
+        {
+            document.getElementById("authorization-form").submit();
+        }
+    }
     var button = document.getElementById("enter-button");
     button.onclick = submitAuth;
 
-    function submitAuth() {
-        if (checkAuthValid())
-        {
-            document.getElementById("authorization-form").submit()
-        }
-    }
-
-    function checkAuthValid(){
-        var result = true;
-        var map = checkAuthMap;
-        for (var name in map){
-            result = result && map[name];
-        }
-        return result;
-    }
 </script>
 <script type="text/javascript" src="scripts/authValidation.js"></script>

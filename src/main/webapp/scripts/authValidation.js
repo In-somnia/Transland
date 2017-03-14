@@ -13,12 +13,12 @@ var authData = [
         pattern: /[A-za-z0-9]{6,50}/,
         errMessage: "Латиница, цифры не менее 6 символов"
     }
-]
+];
 
 var checkAuthMap = {
     email: false,
     password: false
-}
+};
 
 document.getElementById("j_login").onchange = validateAuth;
 document.getElementById("j_password").onchange = validateAuth;

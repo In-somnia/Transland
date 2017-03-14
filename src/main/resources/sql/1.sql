@@ -40,3 +40,27 @@ CREATE TABLE Employer(
   UNIQUE (id),
   UNIQUE (email)
 );
+
+INSERT INTO Education (university, department, education_type, graduation_date)
+VALUES (
+  'МГУ',
+  'Социологии',
+  'FULL_TIME',
+  '2011'
+);
+
+INSERT INTO Translator (first_name, last_name, patronymic, is_translator, city, cell, email, education_id,
+                        experience, info, password)
+VALUES (
+  'Мария',
+  'Иванова',
+  'Сергеевна',
+  true,
+  'Москва',
+  '+7(951)614-32-97',
+  'masha@mail.ru',
+  '1',
+  '4 года',
+  'Просто Маша.',
+  'qwerty'
+);
