@@ -26,5 +26,11 @@
     </div>
 
 <button class="button" id="exit">Выйти</button>
+<button class="side-button" id="profile-button">Моя страница</button>
+<button class="side-button" id="message-button">Мои сообщения</button>
+<button class="side-button" id="colleagues-button">Мои коллеги</button>
+<button class="side-button" id="edit-button">Редактировать</button>
+<button class="side-button" id="delete-button">Удалить страницу</button>
+
 </body>
 </html>
