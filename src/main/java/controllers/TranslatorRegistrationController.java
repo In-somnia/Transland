@@ -97,7 +97,7 @@ public class TranslatorRegistrationController extends HttpServlet {
         }
 
         if (!validationCheck) {
-            
+
             Translator translator = new Translator();
             translator.setFirstName(firstName);
             translator.setLastName(lastName);
