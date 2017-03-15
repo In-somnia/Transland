@@ -13,4 +13,5 @@ public interface TranslatorDao {
     boolean removePage(long id);
     boolean restorePage(long id);
     List<Translator> getAll();
+    void editTranslatorData(Translator translator);
 }

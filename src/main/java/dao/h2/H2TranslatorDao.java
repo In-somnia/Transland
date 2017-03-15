@@ -167,6 +167,37 @@ public class H2TranslatorDao implements TranslatorDao {
         }
     }
 
+    public void editTranslatorData(Translator translator) {
+        String preparedTranslatorQuery ="UPDATE Translator SET city=?, cell=? WHERE id=?";
+        try (Connection connection = dataSource.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(preparedTranslatorQuery)) {
+            preparedStatement.setString(1, translator.getCity());
+            preparedStatement.setString(2, translator.getCell());
+            preparedStatement.setLong(3, translator.getId());
+
+            preparedStatement.executeUpdate();
+        } catch(SQLException e) {
+            System.err.println("SQLException message:" + e.getMessage());
+            System.err.println("SQLException SQL state:" + e.getSQLState());
+            System.err.println("SQLException SQL error code:" + e.getErrorCode());
+        }
+        String preparedEducationQuery ="UPDATE Education SET university=?, department=?, education_type=?, graduation_date=? WHERE id=?";
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(preparedEducationQuery)) {
+            preparedStatement.setString(1, translator.getEducation().getUniversity());
+            preparedStatement.setString(2, translator.getEducation().getDepartment());
+            preparedStatement.setString(3, translator.getEducation().getEducationType().toString());
+            preparedStatement.setInt(4, translator.getEducation().getGraduationYear());
+            preparedStatement.setLong(4, translator.getEducation().getId());
+
+            preparedStatement.executeUpdate();
+        } catch(SQLException e) {
+            System.err.println("SQLException message:" + e.getMessage());
+            System.err.println("SQLException SQL state:" + e.getSQLState());
+            System.err.println("SQLException SQL error code:" + e.getErrorCode());
+        }
+    }
+
     @Override
     public List<Translator> getAll() {
         return null;

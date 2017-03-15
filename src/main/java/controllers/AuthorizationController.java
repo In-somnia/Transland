@@ -34,12 +34,12 @@ public class AuthorizationController extends HttpServlet {
         String password = req.getParameter("password");
         boolean invalidDataCheck = false;
 
-        if (login.length() < 1 || login.length() > 100)
+        if (login.isEmpty() || login.length() < 1 || login.length() > 100)
         {
             invalidDataCheck = true;
         }
 
-        if (password.length() < 6 || password.length() > 50)
+        if (password.isEmpty() || password.length() < 6 || password.length() > 50)
         {
             invalidDataCheck = true;
         }
