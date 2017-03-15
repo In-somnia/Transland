@@ -31,7 +31,9 @@
 <button class="side-button" id="message-button">Мои сообщения</button>
 <button class="side-button" id="colleagues-button">Мои коллеги</button>
 <button class="side-button" id="edit-button">Редактировать</button>
-<button class="side-button" id="delete-button">Удалить страницу</button>
 
+<form id="delete-page" action="PageRemoveController" method="post">
+<button class="side-button" id="delete-button">Удалить страницу</button>
+</form>
 </body>
 </html>

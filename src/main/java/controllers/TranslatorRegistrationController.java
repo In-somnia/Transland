@@ -44,6 +44,7 @@ public class TranslatorRegistrationController extends HttpServlet {
         String info = request.getParameter("info").trim();
         String password = request.getParameter("password").trim();
 
+
         boolean validationCheck = false;
 
 
@@ -132,6 +133,7 @@ public class TranslatorRegistrationController extends HttpServlet {
         translator.setExperience(experience);
         translator.setInfo(info);
         translator.setPassword(password);
+        translator.setIsRemoved(false);
 
         long id = daoManager.getTranslatorDao().create(translator);
         request.setAttribute(USER_ID, id);

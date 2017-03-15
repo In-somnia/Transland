@@ -63,6 +63,7 @@ public class H2TranslatorDao implements TranslatorDao {
                     translator.setPassword(rs.getString(10));
                     translator.setExperience(rs.getString(11));
                     translator.setInfo(rs.getString(12));
+                    translator.setIsRemoved(rs.getBoolean(13));
                 }
             }
 
@@ -89,8 +90,8 @@ public class H2TranslatorDao implements TranslatorDao {
             preparedStatement.executeUpdate();
 
             String preparedInnerQuery = "INSERT INTO Translator(first_name, last_name, patronymic, is_translator, city, cell, " +
-                    "email, password, education_id, experience, info) "+
-                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                    "email, password, education_id, experience, info, isRemoved) "+
+                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             try (ResultSet rs = preparedStatement.getGeneratedKeys();
                  PreparedStatement preparedInnerStatement = connection.prepareStatement(preparedInnerQuery,
                          PreparedStatement.RETURN_GENERATED_KEYS)){
@@ -106,6 +107,7 @@ public class H2TranslatorDao implements TranslatorDao {
                     preparedInnerStatement.setObject(9, rs.getLong(1));
                     preparedInnerStatement.setObject(10, translator.getExperience());
                     preparedInnerStatement.setObject(11, translator.getInfo());
+                    preparedInnerStatement.setObject(12, translator.isRemoved());
                     preparedInnerStatement.executeUpdate();
                 }
                 ResultSet generatedKeys = preparedInnerStatement.getGeneratedKeys();
@@ -122,7 +124,48 @@ public class H2TranslatorDao implements TranslatorDao {
 
 
     @Override
-    public void remove(long id) {
+    public boolean checkIsRemoved(long id) {
+        boolean result = false;
+        String preparedQuery = "SELECT isRemoved FROM Translator WHERE id=?";
+        try (Connection connection = dataSource.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(preparedQuery)) {
+            preparedStatement.setLong(1, id);
+            ResultSet rs = preparedStatement.executeQuery();
+            while(rs.next())
+            {
+                result = rs.getBoolean(1);
+            }
+        } catch(SQLException e) {
+            System.err.println("SQLException message:" + e.getMessage());
+            System.err.println("SQLException SQL state:" + e.getSQLState());
+            System.err.println("SQLException SQL error code:" + e.getErrorCode());
+        }
+        return result;
+    }
+
+    public boolean removePage(long id) {
+        boolean param = true;
+        updateIsRemovedInDB(id, param);
+        return true;
+    }
+    public boolean restorePage(long id) {
+        boolean param = false;
+        updateIsRemovedInDB(id, param);
+        return false;
+    }
+
+    private void updateIsRemovedInDB(long id, boolean param) {
+        String preparedQuery = "UPDATE Translator SET isRemoved=? WHERE id=?";
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(preparedQuery)) {
+            preparedStatement.setBoolean(1, param);
+            preparedStatement.setLong(2, id);
+            preparedStatement.executeUpdate();
+        } catch(SQLException e) {
+            System.err.println("SQLException message:" + e.getMessage());
+            System.err.println("SQLException SQL state:" + e.getSQLState());
+            System.err.println("SQLException SQL error code:" + e.getErrorCode());
+        }
     }
 
     @Override

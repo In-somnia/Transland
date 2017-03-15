@@ -50,9 +50,12 @@ public class AuthorizationController extends HttpServlet {
         }
 
         long userId = daoManager.getAuthorizationDao().checkCredentials(login, password);
+
         if (userId != -1) {
 
             req.getSession().setAttribute("authorized", userId);
+            boolean isPageRemoved = daoManager.getTranslatorDao().checkIsRemoved(userId);
+            req.getSession().setAttribute("removed", isPageRemoved);
             req.getRequestDispatcher("/TranslatorProfileController").forward(req, resp);
 
         } else {

@@ -22,8 +22,13 @@ public class Translator {
 
     private String experience;
     private String info;
+    private boolean isRemoved;
 
     public void setIsTranslator(boolean isTranslator) {
         this.isTranslator = isTranslator;
+    }
+
+    public void setIsRemoved(boolean isRemoved) {
+        this.isRemoved = isRemoved;
     }
 }

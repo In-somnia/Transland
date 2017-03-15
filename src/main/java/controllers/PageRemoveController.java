@@ -1,7 +1,7 @@
 package controllers;
 
+
 import dao.DaoManager;
-import model.Translator;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -12,8 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 
-@WebServlet("/TranslatorProfileController")
-public class TranslatorProfileController extends HttpServlet {
+@WebServlet("/PageRemoveController")
+public class PageRemoveController extends HttpServlet {
 
     private DaoManager daoManager;
 
@@ -26,17 +26,10 @@ public class TranslatorProfileController extends HttpServlet {
         response.setContentType("text/html");
         request.setCharacterEncoding("utf-8");
         long id = (long)request.getSession().getAttribute("authorized");
-
         if ((id != -1) && (request.getSession().getAttribute("authorized") != null)) {
-            boolean isRemoved = (boolean)request.getSession().getAttribute("removed");
-
-            if (!isRemoved) {
-                Translator translator = daoManager.getTranslatorDao().get(id);
-                request.getSession().setAttribute("userData", translator);
-                request.getRequestDispatcher("/WEB-INF/translatorProfilePage.jsp").forward(request, response);
-            } else {
-                request.getRequestDispatcher("removedPage.jsp").forward(request, response);
-            }
+            boolean isRemoved = daoManager.getTranslatorDao().removePage(id);
+            request.getSession().setAttribute("removed", isRemoved);
+            request.getRequestDispatcher("removedPage.jsp").forward(request, response);
         } else {
             request.getRequestDispatcher("authorizationPage.jsp").forward(request, response);
         }

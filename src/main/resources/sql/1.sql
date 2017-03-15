@@ -19,6 +19,7 @@ CREATE TABLE Translator(
   password VARCHAR(50) NOT NULL,
   experience VARCHAR(20) NOT NULL,
   info VARCHAR(250),
+  isRemoved BOOL NOT NULL,
 
 
   FOREIGN KEY (education_id) REFERENCES Education(id),
