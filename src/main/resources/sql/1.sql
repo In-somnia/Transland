@@ -52,7 +52,7 @@ VALUES (
 );
 
 INSERT INTO Translator (first_name, last_name, patronymic, is_translator, city, cell, email, education_id,
-                        experience, info, password)
+                        experience, info, password, isRemoved)
 VALUES (
   'Мария',
   'Иванова',
@@ -64,5 +64,6 @@ VALUES (
   '1',
   '4 года',
   'Просто Маша.',
-  'qwerty'
+  'qwerty',
+  false
 );

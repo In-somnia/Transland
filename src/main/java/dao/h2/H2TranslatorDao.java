@@ -122,7 +122,6 @@ public class H2TranslatorDao implements TranslatorDao {
         return translator.getId();
     }
 
-
     @Override
     public boolean checkIsRemoved(long id) {
         boolean result = false;
