@@ -28,6 +28,8 @@ public class TranslatorRegistrationController extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+        response.setContentType("text/html");
+        request.setCharacterEncoding("utf-8");
         String firstName =  request.getParameter("firstName").trim();
         String lastName =  request.getParameter("lastName").trim();
         String middleName = request.getParameter("middleName").trim();
@@ -105,12 +107,10 @@ public class TranslatorRegistrationController extends HttpServlet {
             validationCheck = true;
         }
 
-
             if (!validationCheck)
             {
                 request.getRequestDispatcher("translatorRegistrationPage.jsp").forward(request, response);
             }
-
 
         Translator translator = new Translator();
         translator.setFirstName(firstName);

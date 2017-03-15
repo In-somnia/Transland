@@ -83,7 +83,7 @@ public class H2TranslatorDao implements TranslatorDao {
                     PreparedStatement.RETURN_GENERATED_KEYS)) {
             preparedStatement.setString(1, translator.getEducation().getUniversity());
             preparedStatement.setString(2, translator.getEducation().getDepartment());
-            preparedStatement.setObject(3, translator.getEducation().getEducationType().ordinal() + 1);
+            preparedStatement.setObject(3, translator.getEducation().getEducationType().toString());
             preparedStatement.setInt(4, translator.getEducation().getGraduationYear());
 
             preparedStatement.executeUpdate();

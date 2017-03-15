@@ -24,8 +24,9 @@
         <p><b>Опыт:</b> ${sessionScope.userData.experience}</p>
         <p><b>О себе:</b> ${sessionScope.userData.info}</p>
     </div>
-
-<button class="button" id="exit">Выйти</button>
+<form id="exit-form" action="ProfileExitController" method="post">
+    <button class="button" id="exit">Выйти</button>
+</form>
 <button class="side-button" id="profile-button">Моя страница</button>
 <button class="side-button" id="message-button">Мои сообщения</button>
 <button class="side-button" id="colleagues-button">Мои коллеги</button>

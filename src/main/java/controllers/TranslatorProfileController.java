@@ -23,10 +23,15 @@ public class TranslatorProfileController extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.setContentType("text/html");
+        request.setCharacterEncoding("utf-8");
         long id = (long)request.getSession().getAttribute("authorized");
-        Translator translator = daoManager.getTranslatorDao().get(id);
-        request.getSession().setAttribute("userData", translator);
-        request.getRequestDispatcher("WEB-INF/translatorProfilePage.jsp").forward(request, response);
+        if ((id != -1) && (request.getSession().getAttribute("authorized") != null)) {
+            Translator translator = daoManager.getTranslatorDao().get(id);
+            request.getSession().setAttribute("userData", translator);
+            request.getRequestDispatcher("/WEB-INF/translatorProfilePage.jsp").forward(request, response);
+        }
+        request.getRequestDispatcher("authorizationPage.jsp").forward(request, response);
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

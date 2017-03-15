@@ -28,6 +28,7 @@ public class AuthorizationController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        resp.setContentType("text/html");
         req.setCharacterEncoding("utf-8");
         String login = req.getParameter("email");
         String password = req.getParameter("password");
@@ -49,7 +50,7 @@ public class AuthorizationController extends HttpServlet {
         }
 
         long userId = daoManager.getAuthorizationDao().checkCredentials(login, password);
-        if (userId != 0) {
+        if (userId != -1) {
 
             req.getSession().setAttribute("authorized", userId);
             req.getRequestDispatcher("/TranslatorProfileController").forward(req, resp);
