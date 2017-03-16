@@ -5,7 +5,7 @@ var valiData = [
         name: "firstName",
         pattern: /^[А-Я][а-я]{1,49}$/,
         page: 1,
-        errorMessage: "Кириллица не более 50 символов"
+        errorMessage: "Кириллица не более 20 символов"
 
     },
     {
@@ -14,7 +14,7 @@ var valiData = [
         name: "lastName",
         pattern: /^[А-Я][а-я]{1,49}$/,
         page: 1,
-        errorMessage: "Кириллица не более 50 символов"
+        errorMessage: "Кириллица не более 20 символов"
     },
     {
         index: 3,
@@ -22,7 +22,7 @@ var valiData = [
         name: "middleName",
         pattern: /^[А-Я][а-я]{1,49}$/,
         page: 1,
-        errorMessage: "Кириллица не более 50 символов"
+        errorMessage: "Кириллица не более 20 символов"
     },
     {
         index: 4,
@@ -30,7 +30,7 @@ var valiData = [
         name: "city",
         pattern: /^[А-Я][а-я]+([\-][А-Я])?[а-я]{1,49}$/,
         page: 1,
-        errorMessage: "Кириллица, \"-\" и пробел не более 50 символов"
+        errorMessage: "Кириллица, \"-\" и пробел не более 20 символов"
     },
     {
         index: 5,
@@ -122,7 +122,6 @@ var validationMap = {
     }
 };
 
-var errorMessage = document.getElementById('error-message');
 
 document.getElementById("first-name").onchange = validate;
 document.getElementById("middle-name").onchange = validate;
@@ -148,7 +147,7 @@ function validate(){
     this.value = (this.value.replace(/</g, "&lt;")).replace(/>/g, "&gt;");
 
     if (!checkPattern(index, val)){
-         errorMessage.value = valiData[index-1].errorMessage;
+         errorSpan.value = valiData[index-1].errorMessage;
          this.style.border = "red 2px solid";
          errorSpan.classList.remove('hidden');
          errorSpan.textContent = valiData[index-1].errorMessage;
@@ -186,7 +185,7 @@ function validate(){
 
     if(val == null)
     {
-        errorMessage.value = valiData[index-1].errorMessage;
+        errorSpan.value = valiData[index-1].errorMessage;
         this.style.border = "red 2px solid";
         errorSpan.classList.remove('hidden');
         errorSpan.textContent = valiData[index-1].errorMessage;

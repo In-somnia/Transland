@@ -2,23 +2,25 @@ CREATE TABLE Education(
   id BIGINT AUTO_INCREMENT PRIMARY KEY,
   university VARCHAR(50) NOT NULL,
   department VARCHAR(50) NOT NULL,
-  education_type VARCHAR(50) NOT NULL,
-  graduation_date INT NOT NULL
+  education_type VARCHAR(20) NOT NULL,
+  graduation_date INT NOT NULL,
+
+  UNIQUE (id)
 );
 
 CREATE TABLE Translator(
   id BIGINT AUTO_INCREMENT PRIMARY KEY,
-  first_name VARCHAR(50) NOT NULL,
-  last_name VARCHAR(50) NOT NULL,
-  patronymic VARCHAR(50),
+  first_name VARCHAR(20) NOT NULL,
+  last_name VARCHAR(20) NOT NULL,
+  patronymic VARCHAR(20),
   is_translator BOOL NOT NULL,
-  city VARCHAR(50) NOT NULL,
-  cell VARCHAR(50) NOT NULL,
-  email VARCHAR(100) NOT NULL,
+  city VARCHAR(20) NOT NULL,
+  cell VARCHAR(16) NOT NULL,
+  email VARCHAR(30) NOT NULL,
   education_id BIGINT NOT NULL,
-  password VARCHAR(50) NOT NULL,
+  password VARCHAR(30) NOT NULL,
   experience VARCHAR(20) NOT NULL,
-  info VARCHAR(250),
+  info VARCHAR(150),
   isRemoved BOOL NOT NULL,
 
 
@@ -29,15 +31,15 @@ CREATE TABLE Translator(
 
 CREATE TABLE Employer(
   id BIGINT AUTO_INCREMENT PRIMARY KEY,
-  first_name VARCHAR(50) NOT NULL,
-  last_name VARCHAR(50) NOT NULL,
-  patronymic VARCHAR(50),
+  first_name VARCHAR(20) NOT NULL,
+  last_name VARCHAR(20) NOT NULL,
+  patronymic VARCHAR(20),
   is_translator BOOL NOT NULL,
-  city VARCHAR(50) NOT NULL,
-  email VARCHAR(100) NOT NULL,
-  firm VARCHAR(50),
-  cell VARCHAR(50) NOT NULL,
-  password VARCHAR(255) NOT NULL,
+  city VARCHAR(20) NOT NULL,
+  cell VARCHAR(16) NOT NULL,
+  email VARCHAR(30) NOT NULL,
+  firm VARCHAR(30),
+  password VARCHAR(30) NOT NULL,
 
   UNIQUE (id),
   UNIQUE (email)
@@ -63,7 +65,7 @@ VALUES (
   'masha@mail.ru',
   '1',
   '4 года',
-  'Просто Маша.',
+  'Перевод художественной и технической литературы. Владею Trados 2015. Возможны срочные переводы.',
   'qwerty',
   false
 );

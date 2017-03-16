@@ -1,13 +1,21 @@
 
 body {
-    background: url("/images/profile.jpg") no-repeat;
+    background: url("/images/welcomepage.jpg") no-repeat;
     background-size: cover;
     margin: 0;
 }
 header {
     height: 70px;
     border-radius: 5px;
-    background-color: #196d53;
+    background-color: #628451;
+    padding-top: auto;
+    padding-bottom: auto;
+    box-shadow: 0 5px 10px #343434;
+}
+footer {
+    height: 70px;
+    border-radius: 5px;
+    background-color: #628451;
     padding-top: auto;
     padding-bottom: auto;
 }
@@ -20,31 +28,68 @@ h1 {
 h2 {
     font-family: "Comic Sans MS", "Arial Black", "serif";
     font-size: 30px;
-    color: #196d53;
+    color: bisque;
     text-align: center;
+}
+.about-myself {
+    display: inline-block;
+    position: absolute;
+    left: 750px;
+    top: 250px;
+    width: 400px;
+    min-height: 400px;
+    padding-left: 5px;
+    background: url("/images/sticker.png") no-repeat;
+    background-size: cover;
+}
+.note {
+
+    padding-left: 20px;
+    padding-top: 45px;
 }
 
 .info {
-    background-color: bisque;
-    border: 1px solid rosybrown;
+    background-color: #628451;
     display: inline-block;
-    width: 40%;
+    width: 60%;
     float: right;
     padding-left: 10px;
+    padding-bottom: 10px;
     border-radius: 5px;
-    margin-right: 200px;
-    margin-top: 20px;
+    margin-right: 250px;
+    box-shadow: 0 5px 10px #343434;
+    height: 535px;
+}
+.contacts {
+    position: absolute;
+    display: inline-block;
+    right: 290px;
+    width: 200px;
+    top: 350px;
+    z-index: 5;
+    font-family: "Comic Sans MS", "Arial Black", "serif";
+    color: #196d53;
+
+}
+.education {
+    position: absolute;
+    display: inline-block;
+    width: 400px;
+    left: 310px;
+    top: 260px;
+    font-family: "Comic Sans MS", "Arial Black", "serif";
+    color: bisque;
 }
 .pic {
     display: inline-block;
     float: left;
     width: 20%;
-    margin-left: 270px;
     border-radius: 5px;
-    background-color: bisque;
-    border: 1px solid rosybrown;
-    height: 200px;
+    background: url("/images/dictionary.png") no-repeat;
+    background-size: cover;
+    height: 153px;
     margin-top: 20px;
+    margin-left: 20px;
 }
 .button {
     padding: 10px;
@@ -70,12 +115,16 @@ h2 {
     border-radius: 10px;
     font-family: "Comic Sans MS", "Arial Black", "serif";
     color: bisque;
-    background-color: #196d53;
+    background-color: brown;
     box-shadow: 0 5px 10px #343434;
     border: 1px solid rosybrown;
     position: absolute;
     left: 20px;
     float: left;
+}
+main {
+    min-height: 80%;
+    margin-bottom: 20px;
 }
 #profile-button {
     top: 90px;

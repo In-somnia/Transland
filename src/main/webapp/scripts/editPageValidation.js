@@ -4,7 +4,7 @@ var editData = [
         id: "city",
         name: "city",
         pattern: /^[А-Я][а-я]+([\-][А-Я])?[а-я]{1,49}$/,
-        errorMessage: "Кириллица, \"-\" и пробел не более 50 символов"
+        errorMessage: "Кириллица, \"-\" и пробел не более 20 символов"
     },
     {
         index: 2,
@@ -118,7 +118,7 @@ function edFormValidation() {
 
     if(value == null)
     {
-        errorMessage.value = editData[index-1].errorMessage;
+        errorSpan.value = editData[index-1].errorMessage;
         this.style.border = "red 2px solid";
         errorSpan.classList.remove('hidden');
         errorSpan.textContent = editData[index-1].errorMessage;
