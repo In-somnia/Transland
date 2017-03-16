@@ -188,7 +188,7 @@ public class H2TranslatorDao implements TranslatorDao {
             preparedStatement.setString(2, translator.getEducation().getDepartment());
             preparedStatement.setString(3, translator.getEducation().getEducationType().toString());
             preparedStatement.setInt(4, translator.getEducation().getGraduationYear());
-            preparedStatement.setLong(4, translator.getEducation().getId());
+            preparedStatement.setLong(5, translator.getEducation().getId());
 
             preparedStatement.executeUpdate();
         } catch(SQLException e) {

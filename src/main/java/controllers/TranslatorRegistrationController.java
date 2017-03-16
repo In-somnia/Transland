@@ -29,7 +29,7 @@ public class TranslatorRegistrationController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         response.setContentType("text/html");
-        request.setCharacterEncoding("utf-8");
+        /*request.setCharacterEncoding("utf-8");*/
         String firstName = request.getParameter("firstName").trim();
         String lastName = request.getParameter("lastName").trim();
         String middleName = request.getParameter("middleName").trim();

@@ -26,7 +26,7 @@ public class PageEditController extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html");
-        request.setCharacterEncoding("utf-8");
+        /*request.setCharacterEncoding("utf-8");*/
 
         String city = request.getParameter("city").trim();
         String cell = request.getParameter("cell").trim();

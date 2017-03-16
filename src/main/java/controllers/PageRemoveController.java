@@ -24,7 +24,7 @@ public class PageRemoveController extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html");
-        request.setCharacterEncoding("utf-8");
+        /*request.setCharacterEncoding("utf-8");*/
         long id = (long)request.getSession().getAttribute("authorized");
         if ((id != -1) && (request.getSession().getAttribute("authorized") != null)) {
             boolean isRemoved = daoManager.getTranslatorDao().removePage(id);
