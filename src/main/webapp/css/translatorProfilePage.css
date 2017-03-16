@@ -31,6 +31,10 @@ h2 {
     color: bisque;
     text-align: center;
 }
+main {
+    min-height: 80%;
+    margin-bottom: 20px;
+}
 .about-myself {
     display: inline-block;
     position: absolute;
@@ -43,11 +47,9 @@ h2 {
     background-size: cover;
 }
 .note {
-
     padding-left: 20px;
     padding-top: 45px;
 }
-
 .info {
     background-color: #628451;
     display: inline-block;
@@ -55,7 +57,7 @@ h2 {
     float: right;
     padding-left: 10px;
     padding-bottom: 10px;
-    border-radius: 5px;
+    border-radius: 10px;
     margin-right: 250px;
     box-shadow: 0 5px 10px #343434;
     height: 535px;
@@ -69,7 +71,6 @@ h2 {
     z-index: 5;
     font-family: "Comic Sans MS", "Arial Black", "serif";
     color: #196d53;
-
 }
 .education {
     position: absolute;
@@ -121,10 +122,6 @@ h2 {
     position: absolute;
     left: 20px;
     float: left;
-}
-main {
-    min-height: 80%;
-    margin-bottom: 20px;
 }
 #profile-button {
     top: 90px;

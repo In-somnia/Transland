@@ -45,7 +45,6 @@ h2 {
     padding-bottom: 10px;
     border-radius: 10px;
     margin-right: 250px;
-    margin-top: 20px;
     box-shadow: 0 5px 10px #343434;
     height: 535px;
 }
@@ -71,10 +70,6 @@ h2 {
     background: url("/images/sticker.png") no-repeat;
     background-size: cover;
 }
-main {
-    min-height: 80%;
-    margin-bottom: 20px;
-}
 .button {
     padding: 10px;
     height: 50px;
@@ -86,42 +81,50 @@ main {
     background-color: brown;
     box-shadow: 0 5px 10px #343434;
     border: 1px solid rosybrown;
-}
-#save {
-    margin-left: 30%;
-}
+    position: absolute;
 
-#edit-form {
-    width: 400px;
-    border-radius: 10px;
-    background-color: #628451;
-    padding: 0 20px 0 20px;
-    margin-left: 279px;
-    font-family: "Comic Sans MS", "Arial Black", "serif";
+}
+#exit {
+    top: 10px;
+    right: 20px;
+    float: right;
+}
+.side-button {
+    padding: 10px;
+    height: 50px;
+    width: 200px;
     font-size: 20px;
+    border-radius: 10px;
+    font-family: "Comic Sans MS", "Arial Black", "serif";
     color: bisque;
-
-}
-input:not(.button) {
-    width: 100%;
-    padding: 5px;
-    height: 35px;
-    margin-bottom: 10px;
-    border-radius: 5px;
+    background-color: brown;
+    box-shadow: 0 5px 10px #343434;
     border: 1px solid rosybrown;
-    background-color: bisque;
-    box-shadow: 0 2px 5px #404040;
+    position: absolute;
+    left: 20px;
+    float: left;
 }
-
-.half-width {
-    display: inline-block;
-    width: 48%;
+main {
+    min-height: 80%;
+    margin-bottom: 20px;
 }
-
-#education-form {
-    margin-right: 5px;
+#restore {
+    top: 10px;
+    left: 20px;
+    float: left;
 }
-
-#graduation-year {
-    margin-left: 11px;
+#profile-button {
+    top: 90px;
+}
+#message-button {
+    top: 160px;
+}
+#colleagues-button {
+    top: 230px;
+}
+#edit-button {
+    top: 300px;
+}
+#delete-button {
+    top: 370px;
 }
