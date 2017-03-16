@@ -17,56 +17,45 @@ h1 {
     color: bisque;
     text-align: center;
 }
-h2 {
-    font-family: "Comic Sans MS", "Arial Black", "serif";
-    font-size: 30px;
-    color: bisque;
-    text-align: center;
-}
 main {
     min-height: 80%;
     margin-bottom: 20px;
 }
-.note {
-
-    padding-left: 20px;
-    padding-top: 45px;
-}
-
 .info {
     background-color: #628451;
     display: inline-block;
     width: 60%;
     float: right;
-    padding-left: 10px;
-    padding-bottom: 10px;
+    padding: 0 20px 20px 20px;
     border-radius: 10px;
-    margin-right: 250px;
+    margin-right: 220px;
+    margin-left: 10px;
     margin-top: 20px;
     box-shadow: 0 5px 10px #343434;
     height: 535px;
+    font-family: "Comic Sans MS", "Arial Black", "serif";
+    font-size: 20px;
+    color: bisque;
+
 }
-.pic {
+.search-results {
     display: inline-block;
-    float: left;
-    width: 20%;
-    border-radius: 5px;
-    background: url("/images/dictionary.png") no-repeat;
-    background-size: cover;
-    height: 153px;
-    margin-top: 20px;
-    margin-left: 20px;
+    width: 100%;
+    height: 100px;
+    background-color: bisque;
+    border: 1px solid rosybrown;
+    color: #628451;
+    font-family: "Comic Sans MS", "Arial Black", "serif";
+    border-radius: 10px;
+    margin-bottom: 20px;
+    margin-right: 10px;
 }
-.about-myself {
+.search-data {
     display: inline-block;
-    position: absolute;
-    left: 750px;
-    top: 250px;
-    width: 400px;
-    min-height: 400px;
-    padding-left: 5px;
-    background: url("/images/sticker.png") no-repeat;
-    background-size: cover;
+    width: 50%;
+    margin-right: 20px;
+    margin-left: 10px;
+    padding-left: 10px;
 }
 .button {
     padding: 10px;
@@ -80,19 +69,48 @@ main {
     box-shadow: 0 5px 10px #343434;
     border: 1px solid rosybrown;
 }
-#save {
-    margin-left: 30%;
+.add-button {
+    padding: 10px;
+    height: 50px;
+    width: 200px;
+    font-size: 20px;
+    border-radius: 10px;
+    font-family: "Comic Sans MS", "Arial Black", "serif";
+    color: bisque;
+    background-color: brown;
+    box-shadow: 0 5px 10px #343434;
+    border: 1px solid rosybrown;
 }
-#edit-form {
-    width: 400px;
+.search-block {
+    float: left;
+    margin-left: 20px;
+    margin-top: 20px;
+    background-color: #628451;
+    box-shadow: 0 5px 10px #343434;
+    color: bisque;
+    border-radius: 10px;
+}
+#search-form {
+    width: 200px;
     border-radius: 10px;
     background-color: #628451;
-    padding: 0 20px 0 20px;
-    margin-left: 279px;
+    padding-left: 20px;
+    padding-right: 20px;
     font-family: "Comic Sans MS", "Arial Black", "serif";
     font-size: 20px;
     color: bisque;
-
+}
+#exit {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    float: right;
+}
+#profile-button {
+    position: absolute;
+    top: 10px;
+    left: 20px;
+    float: left;
 }
 input:not(.button) {
     width: 100%;
@@ -103,14 +121,4 @@ input:not(.button) {
     border: 1px solid rosybrown;
     background-color: bisque;
     box-shadow: 0 2px 5px #404040;
-}
-.half-width {
-    display: inline-block;
-    width: 48%;
-}
-#education-form {
-    margin-right: 5px;
-}
-#graduation-year {
-    margin-left: 11px;
 }

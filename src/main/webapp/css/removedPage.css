@@ -11,13 +11,6 @@ header {
     padding-bottom: auto;
     box-shadow: 0 5px 10px #343434;
 }
-footer {
-    height: 70px;
-    border-radius: 5px;
-    background-color: #628451;
-    padding-top: auto;
-    padding-bottom: auto;
-}
 h1 {
     font-family: "Comic Sans MS", "Arial Black", "serif";
     font-size: 50px;
@@ -29,6 +22,10 @@ h2 {
     font-size: 30px;
     color: bisque;
     text-align: center;
+}
+main {
+    min-height: 80%;
+    margin-bottom: 20px;
 }
 .note {
 
@@ -103,10 +100,6 @@ h2 {
     position: absolute;
     left: 20px;
     float: left;
-}
-main {
-    min-height: 80%;
-    margin-bottom: 20px;
 }
 #restore {
     top: 10px;

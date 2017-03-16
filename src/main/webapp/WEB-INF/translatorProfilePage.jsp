@@ -35,9 +35,13 @@
             <form id="exit-form" action="ProfileExitController" method="post">
                 <button class="button" id="exit">Выйти</button>
             </form>
-            <button class="side-button" id="profile-button">Моя страница</button>
+            <form id="my-page-form" action="MyPageRedirectController" method="post">
+                <button class="side-button" id="profile-button">Моя страница</button>
+            </form>
             <button class="side-button" id="message-button">Мои сообщения</button>
-            <button class="side-button" id="colleagues-button">Мои коллеги</button>
+            <form id="colleagues-search" action="SearchRedirectController" method="post">
+                <button class="side-button" id="colleagues-button">Мои коллеги</button>
+            </form>
             <form id="edit-page" action="EditPageRedirectController" method="post">
                 <button class="side-button" id="edit-button">Редактировать</button>
             </form>
