@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>edit-page</title>
-    <link rel="stylesheet" type="text/css" href="css/editPage.css">
+    <link rel="stylesheet" type="text/css" href="../css/editPage.css">
 </head>
 <body>
 <header><h1>Transland</h1></header>
@@ -48,4 +48,4 @@
     }
     document.getElementById("save").onclick = checkAndSubmit;
 </script>
-<script type="text/javascript" src="scripts/editPageValidation.js"></script>
+<script type="text/javascript" src="../scripts/editPageValidation.js"></script>

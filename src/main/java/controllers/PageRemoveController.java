@@ -24,12 +24,12 @@ public class PageRemoveController extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html");
-        /*request.setCharacterEncoding("utf-8");*/
+
         long id = (long)request.getSession().getAttribute("authorized");
         if ((id != -1) && (request.getSession().getAttribute("authorized") != null)) {
             boolean isRemoved = daoManager.getTranslatorDao().removePage(id);
             request.getSession().setAttribute("removed", isRemoved);
-            request.getRequestDispatcher("removedPage.jsp").forward(request, response);
+            request.getRequestDispatcher("WEB-INF/removedPage.jsp").forward(request, response);
         } else {
             request.getRequestDispatcher("authorizationPage.jsp").forward(request, response);
         }

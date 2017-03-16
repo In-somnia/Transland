@@ -1,9 +1,5 @@
 package controllers;
 
-import dao.DaoManager;
-import model.Translator;
-
-import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -12,28 +8,16 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 
-@WebServlet("/TranslatorProfileController")
-public class TranslatorProfileController extends HttpServlet {
-
-    private DaoManager daoManager;
-
-    @Override
-    public void init(ServletConfig config) throws ServletException {
-        daoManager = (DaoManager)config.getServletContext().getAttribute("DaoManager");
-    }
-
+@WebServlet("/EditPageRedirectController")
+public class EditPageRedirectController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setContentType("text/html");
-
-        long id = (long)request.getSession().getAttribute("authorized");
+        long id = (long) request.getSession().getAttribute("authorized");
 
         if ((id != -1) && (request.getSession().getAttribute("authorized") != null)) {
-            boolean isRemoved = (boolean)request.getSession().getAttribute("removed");
 
+            boolean isRemoved = (boolean) request.getSession().getAttribute("removed");
             if (!isRemoved) {
-                Translator translator = daoManager.getTranslatorDao().get(id);
-                request.getSession().setAttribute("userData", translator);
-                request.getRequestDispatcher("WEB-INF/translatorProfilePage.jsp").forward(request, response);
+                request.getRequestDispatcher("WEB-INF/editPage.jsp").forward(request, response);
             } else {
                 request.getRequestDispatcher("WEB-INF/removedPage.jsp").forward(request, response);
             }

@@ -26,7 +26,6 @@ public class PageEditController extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html");
-        /*request.setCharacterEncoding("utf-8");*/
 
         String city = request.getParameter("city").trim();
         String cell = request.getParameter("cell").trim();
@@ -96,15 +95,15 @@ public class PageEditController extends HttpServlet {
 
                     daoManager.getTranslatorDao().editTranslatorData(translator);
                     request.getSession().setAttribute("userData", translator);
-                    request.getRequestDispatcher("/WEB-INF/translatorProfilePage.jsp").forward(request, response);
+                    request.getRequestDispatcher("WEB-INF/translatorProfilePage.jsp").forward(request, response);
                 } else {
-                    request.getRequestDispatcher("removedPage.jsp").forward(request, response);
+                    request.getRequestDispatcher("WEB-INF/removedPage.jsp").forward(request, response);
                 }
             } else {
                 request.getRequestDispatcher("authorizationPage.jsp").forward(request, response);
             }
         } else {
-            request.getRequestDispatcher("editPage.jsp").forward(request, response);
+            request.getRequestDispatcher("/WEB-INF/editPage.jsp").forward(request, response);
         }
 
     }

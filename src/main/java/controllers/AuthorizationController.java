@@ -29,7 +29,7 @@ public class AuthorizationController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/html");
-        /*req.setCharacterEncoding("utf-8");*/
+
         String login = req.getParameter("email");
         String password = req.getParameter("password");
         boolean invalidDataCheck = false;

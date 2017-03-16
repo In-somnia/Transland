@@ -30,7 +30,7 @@
 <button class="side-button" id="profile-button">Моя страница</button>
 <button class="side-button" id="message-button">Мои сообщения</button>
 <button class="side-button" id="colleagues-button">Мои коллеги</button>
-<form id="edit-page" action=".././editPage.jsp" method="post">
+<form id="edit-page" action="EditPageRedirectController" method="post">
 <button class="side-button" id="edit-button">Редактировать</button>
 </form>
 <form id="delete-page" action="PageRemoveController" method="post">
