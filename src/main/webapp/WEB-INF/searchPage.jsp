@@ -40,8 +40,21 @@
                 </c:if>
             </c:forEach>
             </tr>
+            <c:set var="currentId" value="${sessionScope.authorized}"/>
             <c:forEach var="translator" items="${sessionScope.thisPageTranslators}">
-                <div class="search-results"><div class="search-data"><p>
+                <c:set var="translatorId" value="${translator.id}"/>
+                <c:if test="${currentId == translatorId}">
+                        <div class="search-results"><div class="search-data"><p>
+                        <c:out value="${translator.firstName}"/>
+                        <c:out value="${translator.patronymic}"/>
+                        <c:out value="${translator.lastName}"/>
+                        <c:out value="${translator.city}"/>
+                        <c:out value="${translator.cell}"/>
+                        <c:out value="${translator.email}"/></p></div>
+                        <button class="pointer-button">Ваша страница</button></div>
+                </c:if>
+                <c:if test="${currentId != translatorId}">
+                    <div class="search-results"><div class="search-data"><p>
                     <c:out value="${translator.firstName}"/>
                     <c:out value="${translator.patronymic}"/>
                     <c:out value="${translator.lastName}"/>
@@ -49,6 +62,7 @@
                     <c:out value="${translator.cell}"/>
                     <c:out value="${translator.email}"/></p></div>
                     <button class="add-button">Добавить</button></div>
+                </c:if>
             </c:forEach>
         </section>
     </article>

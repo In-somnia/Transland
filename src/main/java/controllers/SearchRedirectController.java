@@ -42,7 +42,6 @@ public class SearchRedirectController extends HttpServlet {
 
                 for (int i = 0; i < 4; i++) {
                     long queriedId = allTranslatorIds.get(i);
-
                     Translator translator = daoManager.getTranslatorDao().get(queriedId);
                     currentPageTranslators.add(translator);
                 }
