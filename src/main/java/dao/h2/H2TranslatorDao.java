@@ -249,9 +249,11 @@ public class H2TranslatorDao implements TranslatorDao {
         String querySum = "";
         for (int i = 0; i < listOfQueries.size(); i++)
         {
-             querySum += listOfQueries.get(i);
+            querySum = querySum + listOfQueries.get(i) + " AND ";
         }
-        String query = "SELECT id FROM Translator WHERE " + querySum;
+        String finalQuery = querySum.trim().substring(0, querySum.length()-5);
+
+        String query = "SELECT id FROM Translator WHERE " + finalQuery;
          try(Connection connection = dataSource.getConnection();
          Statement statement = connection.createStatement()) {
          ResultSet resultSet = statement.executeQuery(query);
@@ -278,5 +280,4 @@ public class H2TranslatorDao implements TranslatorDao {
         }
        return currentPageTranslators;
     }
-
 }
