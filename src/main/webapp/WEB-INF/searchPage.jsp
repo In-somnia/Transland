@@ -38,7 +38,7 @@
             <c:forEach var="translator" items="${sessionScope.thisPageTranslators}">
                 <div class="search-results"><div class="search-data"><p><c:out value="${translator.firstName}"/>
                     <c:out value="${translator.patronymic}"/> <c:out value="${translator.lastName}"/>
-                    <c:out value="${translator.city}"/><c:out value="${translator.cell}"/>
+                    <c:out value="${translator.city}"/> <c:out value="${translator.cell}"/>
                     <c:out value="${translator.email}"/></p></div>
                     <button class="add-button">Добавить</button></div>
             </c:forEach>

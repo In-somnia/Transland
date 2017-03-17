@@ -52,7 +52,7 @@ main {
 }
 .search-data {
     display: inline-block;
-    width: 50%;
+    width: 70%;
     margin-right: 20px;
     margin-left: 10px;
     padding-left: 10px;
@@ -80,6 +80,7 @@ main {
     background-color: brown;
     box-shadow: 0 5px 10px #343434;
     border: 1px solid rosybrown;
+    float: right;
 }
 .search-block {
     float: left;
