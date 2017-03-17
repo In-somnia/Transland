@@ -45,27 +45,3 @@ CREATE TABLE Employer(
   UNIQUE (email)
 );
 
-INSERT INTO Education (university, department, education_type, graduation_date)
-VALUES (
-  'МГУ',
-  'Социологии',
-  'FULL_TIME',
-  '2011'
-);
-
-INSERT INTO Translator (first_name, last_name, patronymic, is_translator, city, cell, email, education_id,
-                        experience, info, password, isRemoved)
-VALUES (
-  'Мария',
-  'Иванова',
-  'Сергеевна',
-  true,
-  'Москва',
-  '+7(951)614-32-97',
-  'masha@mail.ru',
-  '1',
-  '4 года',
-  'Перевод художественной и технической литературы. Владею Trados 2015. Возможны срочные переводы.',
-  'qwerty',
-  false
-);

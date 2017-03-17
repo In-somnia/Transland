@@ -7,6 +7,7 @@ import model.Translator;
 
 import javax.sql.DataSource;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -199,8 +200,36 @@ public class H2TranslatorDao implements TranslatorDao {
     }
 
     @Override
-    public List<Translator> getAll() {
-        return null;
+    public List<Long> getAll() {
+        List<Long> translatorIds = new ArrayList<>();
+        String query = "SELECT id FROM Translator";
+        try (Connection connection = dataSource.getConnection();
+        Statement statement = connection.createStatement();
+        ResultSet resultSet = statement.executeQuery(query))
+        {
+            while(resultSet.next()) {
+                translatorIds.add(resultSet.getLong(1));
+            }
+        } catch(SQLException e) {
+            System.err.println("SQLException message:" + e.getMessage());
+            System.err.println("SQLException SQL state:" + e.getSQLState());
+            System.err.println("SQLException SQL error code:" + e.getErrorCode());
+        }
+
+        return translatorIds;
+    }
+
+    public long pageCounter(List<Long> list)
+    {
+        long amountOfPages = 0;
+        if (list.size()%4 == 0)
+        {
+            amountOfPages = (long) list.size()/4;
+        } else if (list.size()%4 > 0)
+        {
+            amountOfPages = (long) list.size()/4 + 1;
+        }
+        return amountOfPages;
     }
 
 }

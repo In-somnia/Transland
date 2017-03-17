@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
     <title>search-colleagues</title>
@@ -14,7 +15,7 @@
         <button class="button" id="profile-button">Моя страница</button>
     </form>
     <aside class="search-block">
-        <form id="search-form" action="" method="post">
+        <form id="search-form" action="SearchController" method="post">
             <p>Параметры поиска:</p>
             <input type="text" maxlength="20" id="first-name" name="firstName" index="1" placeholder="Имя:"><span id="er1" class="error hidden"></span>
             <input type="text" maxlength="20" id="last-name" name="lastName" index="2" placeholder="Фамилия:"><span id="er2" class="error hidden"></span>
@@ -28,11 +29,19 @@
     <article class="profile">
         <section class="info">
             <div><p>Результаты поиска:</p></div>
-            <div><tr><td>1</td></tr></div>
-            <div class="search-results"><div class="search-data"><p>Имя: Фамилия: Отчество:</p><p>Город: Тел: Эл.почта: </p></div><button class="add-button">Добавить</button></div>
-            <div class="search-results"><div class="search-data"><p>Имя: Фамилия: Отчество:</p><p>Город: Тел: Эл.почта: </p></div><button class="add-button">Добавить</button></div>
-            <div class="search-results"><div class="search-data"><p>Имя: Фамилия: Отчество:</p><p>Город: Тел: Эл.почта: </p></div><button class="add-button">Добавить</button></div>
-            <div class="search-results"><div class="search-data"><p>Имя: Фамилия: Отчество:</p><p>Город: Тел: Эл.почта: </p></div><button class="add-button">Добавить</button></div>
+
+            <c:forEach var="counter" begin="0" end="${sessionScope.pages}">
+            <tr><td><c:out value="${counter}"/></td></tr>
+            </c:forEach>
+            <c:set var="positionsPerPage" value="4"/>
+            <c:set var="firstName" value=".firstName"/>
+            <c:forEach var="translator" items="${sessionScope.thisPageTranslators}">
+                <div class="search-results"><div class="search-data"><p><c:out value="${translator.firstName}"/>
+                    <c:out value="${translator.patronymic}"/> <c:out value="${translator.lastName}"/>
+                    <c:out value="${translator.city}"/><c:out value="${translator.cell}"/>
+                    <c:out value="${translator.email}"/></p></div>
+                    <button class="add-button">Добавить</button></div>
+            </c:forEach>
         </section>
     </article>
 </main>
