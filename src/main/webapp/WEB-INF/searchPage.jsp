@@ -29,16 +29,24 @@
     <article class="profile">
         <section class="info">
             <div><p>Результаты поиска:</p></div>
-
-            <c:forEach var="counter" begin="0" end="${sessionScope.pages}">
-            <tr><td><c:out value="${counter}"/></td></tr>
+            <tr>
+            <c:set var="thisPage" value="${sessionScope.currentPage}"/>
+            <c:forEach var="counter" begin="1" end="${sessionScope.pages}">
+                <c:if test="${counter == thisPage}">
+                    <td>${thisPage}</td>
+                </c:if>
+                <c:if test="${counter != thisPage}">
+                    <td><a href="SearchController?page=${counter}"><c:out value="${counter}"/></a></td>
+                </c:if>
             </c:forEach>
-            <c:set var="positionsPerPage" value="4"/>
-            <c:set var="firstName" value=".firstName"/>
+            </tr>
             <c:forEach var="translator" items="${sessionScope.thisPageTranslators}">
-                <div class="search-results"><div class="search-data"><p><c:out value="${translator.firstName}"/>
-                    <c:out value="${translator.patronymic}"/> <c:out value="${translator.lastName}"/>
-                    <c:out value="${translator.city}"/> <c:out value="${translator.cell}"/>
+                <div class="search-results"><div class="search-data"><p>
+                    <c:out value="${translator.firstName}"/>
+                    <c:out value="${translator.patronymic}"/>
+                    <c:out value="${translator.lastName}"/>
+                    <c:out value="${translator.city}"/>
+                    <c:out value="${translator.cell}"/>
                     <c:out value="${translator.email}"/></p></div>
                     <button class="add-button">Добавить</button></div>
             </c:forEach>

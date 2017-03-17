@@ -25,20 +25,25 @@ public class SearchRedirectController extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.setContentType("text/html");
         long id = (long) request.getSession().getAttribute("authorized");
 
         if ((id != -1) && (request.getSession().getAttribute("authorized") != null)) {
 
             boolean isRemoved = (boolean) request.getSession().getAttribute("removed");
             if (!isRemoved) {
+
+                int currentPage = 1;
                 List<Long> allTranslatorIds = daoManager.getTranslatorDao().getAll();
+                List<Translator> currentPageTranslators = new ArrayList<>();
                 long numberOfPages = daoManager.getTranslatorDao().pageCounter(allTranslatorIds);
                 request.getSession().setAttribute("pages", numberOfPages);
-
-                List<Translator> currentPageTranslators = new ArrayList<>();
+                request.getSession().setAttribute("currentPage", currentPage);
 
                 for (int i = 0; i < 4; i++) {
-                    Translator translator = daoManager.getTranslatorDao().get(allTranslatorIds.get(i));
+                    long queriedId = allTranslatorIds.get(i);
+
+                    Translator translator = daoManager.getTranslatorDao().get(queriedId);
                     currentPageTranslators.add(translator);
                 }
                 request.getSession().setAttribute("thisPageTranslators", currentPageTranslators);
