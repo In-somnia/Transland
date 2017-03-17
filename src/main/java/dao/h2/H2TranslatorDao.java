@@ -9,6 +9,7 @@ import javax.sql.DataSource;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 
 public class H2TranslatorDao implements TranslatorDao {
@@ -228,7 +229,54 @@ public class H2TranslatorDao implements TranslatorDao {
         {
             amountOfPages = (long) list.size()/4 + 1;
         }
+        if (amountOfPages < 1) {
+            amountOfPages = 1;
+        }
         return amountOfPages;
+    }
+
+    public List<Long> findColleaguesInDb(Map<Object, Object> map) {
+        List<String> listOfQueries = new ArrayList<>();
+        List<Long> listOfIds = new ArrayList<>();
+        for (Map.Entry<Object, Object> pair : map.entrySet())
+        {
+            Object key = pair.getKey();
+            Object value = pair.getValue();
+
+            String queryParam = key + "=" + value;
+            listOfQueries.add(queryParam);
+        }
+        String querySum = "";
+        for (int i = 0; i < listOfQueries.size(); i++)
+        {
+             querySum += listOfQueries.get(i);
+        }
+        String query = "SELECT id FROM Translator WHERE " + querySum;
+         try(Connection connection = dataSource.getConnection();
+         Statement statement = connection.createStatement()) {
+         ResultSet resultSet = statement.executeQuery(query);
+         while (resultSet.next()) {
+            listOfIds.add(resultSet.getLong(1));
+         }
+         }catch(SQLException e) {
+             System.err.println("SQLException message:" + e.getMessage());
+             System.err.println("SQLException SQL state:" + e.getSQLState());
+             System.err.println("SQLException SQL error code:" + e.getErrorCode());
+         }
+        return listOfIds;
+    }
+    public List<Translator> getCurrentPageTranslators(int resultsPerPage, int pageNumber, List<Long> listOfIds) {
+        List<Translator> currentPageTranslators = new ArrayList<>();
+        for (int i = 0; i < resultsPerPage; i++) {
+            int colleagueId =  ((resultsPerPage*(pageNumber - 1)) + i);
+            if (colleagueId <= listOfIds.size() - 1)
+            {
+                long queriedId = listOfIds.get(colleagueId);
+                Translator translator = get(queriedId);
+                currentPageTranslators.add(translator);
+            }
+        }
+       return currentPageTranslators;
     }
 
 }
