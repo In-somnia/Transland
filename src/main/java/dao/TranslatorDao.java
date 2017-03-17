@@ -12,7 +12,7 @@ public interface TranslatorDao {
     boolean checkIsRemoved(long id);
     boolean removePage(long id);
     boolean restorePage(long id);
-    List<Long> getAll();
+    List<Long> getAllButSelfId(long id);
     void editTranslatorData(Translator translator);
     long pageCounter(List<Long> list);
 }

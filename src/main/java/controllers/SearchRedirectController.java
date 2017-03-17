@@ -34,7 +34,7 @@ public class SearchRedirectController extends HttpServlet {
             if (!isRemoved) {
 
                 int currentPage = 1;
-                List<Long> allTranslatorIds = daoManager.getTranslatorDao().getAll();
+                List<Long> allTranslatorIds = daoManager.getTranslatorDao().getAllButSelfId(id);
                 List<Translator> currentPageTranslators = new ArrayList<>();
                 long numberOfPages = daoManager.getTranslatorDao().pageCounter(allTranslatorIds);
                 request.getSession().setAttribute("pages", numberOfPages);

@@ -15,7 +15,7 @@
         <button class="button" id="profile-button">Моя страница</button>
     </form>
     <aside class="search-block">
-        <form id="search-form" action="SearchController" method="post">
+        <form id="search-form" action="SearchController?page=0" method="post">
             <p>Параметры поиска:</p>
             <input type="text" maxlength="20" id="first-name" name="firstName" index="1" placeholder="Имя:"><span id="er1" class="error hidden"></span>
             <input type="text" maxlength="20" id="last-name" name="lastName" index="2" placeholder="Фамилия:"><span id="er2" class="error hidden"></span>
@@ -40,20 +40,7 @@
                 </c:if>
             </c:forEach>
             </tr>
-            <c:set var="currentId" value="${sessionScope.authorized}"/>
             <c:forEach var="translator" items="${sessionScope.thisPageTranslators}">
-                <c:set var="translatorId" value="${translator.id}"/>
-                <c:if test="${currentId == translatorId}">
-                        <div class="search-results"><div class="search-data"><p>
-                        <c:out value="${translator.firstName}"/>
-                        <c:out value="${translator.patronymic}"/>
-                        <c:out value="${translator.lastName}"/>
-                        <c:out value="${translator.city}"/>
-                        <c:out value="${translator.cell}"/>
-                        <c:out value="${translator.email}"/></p></div>
-                        <button class="pointer-button">Ваша страница</button></div>
-                </c:if>
-                <c:if test="${currentId != translatorId}">
                     <div class="search-results"><div class="search-data"><p>
                     <c:out value="${translator.firstName}"/>
                     <c:out value="${translator.patronymic}"/>
@@ -62,7 +49,6 @@
                     <c:out value="${translator.cell}"/>
                     <c:out value="${translator.email}"/></p></div>
                     <button class="add-button">Добавить</button></div>
-                </c:if>
             </c:forEach>
         </section>
     </article>

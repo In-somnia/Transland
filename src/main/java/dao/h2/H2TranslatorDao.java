@@ -200,13 +200,13 @@ public class H2TranslatorDao implements TranslatorDao {
     }
 
     @Override
-    public List<Long> getAll() {
+    public List<Long> getAllButSelfId(long myId) {
         List<Long> translatorIds = new ArrayList<>();
-        String query = "SELECT id FROM Translator";
+        String query = "SELECT id FROM Translator where id!=?";
         try (Connection connection = dataSource.getConnection();
-        Statement statement = connection.createStatement();
-        ResultSet resultSet = statement.executeQuery(query))
-        {
+        PreparedStatement preparedstatement = connection.prepareStatement(query)) {
+        preparedstatement.setLong(1, myId);
+        ResultSet resultSet = preparedstatement.executeQuery();
             while(resultSet.next()) {
                 translatorIds.add(resultSet.getLong(1));
             }
@@ -215,7 +215,6 @@ public class H2TranslatorDao implements TranslatorDao {
             System.err.println("SQLException SQL state:" + e.getSQLState());
             System.err.println("SQLException SQL error code:" + e.getErrorCode());
         }
-
         return translatorIds;
     }
 

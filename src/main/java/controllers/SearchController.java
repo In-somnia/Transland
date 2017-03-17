@@ -31,17 +31,16 @@ public class SearchController extends HttpServlet {
             boolean isRemoved = (boolean) request.getSession().getAttribute("removed");
             if (!isRemoved) {
                 int resultsPerPage = 4;
-                String pageNumber = request.getParameter("page");
-                List<Long> allTranslatorIds = daoManager.getTranslatorDao().getAll();
+                int pageNumber = Integer.parseInt(request.getParameter("page"));
+                List<Long> allTranslatorIds = daoManager.getTranslatorDao().getAllButSelfId(id);
                 List<Translator> currentPageTranslators = new ArrayList<>();
 
-                if (!pageNumber.isEmpty()) {
+                if (pageNumber != 0) {
                     currentPageTranslators.clear();
-                    int pageNum = Integer.parseInt(pageNumber);
-                    request.getSession().setAttribute("currentPage", pageNum);
+                    request.getSession().setAttribute("currentPage", pageNumber);
                     for (int i = 0; i < resultsPerPage; i++) {
 
-                        int colleagueId =  ((resultsPerPage*(pageNum - 1)) + i);
+                        int colleagueId =  ((resultsPerPage*(pageNumber - 1)) + i);
 
                         if (colleagueId <= allTranslatorIds.size() - 1)
                         {
@@ -52,13 +51,15 @@ public class SearchController extends HttpServlet {
                     }
                     request.getSession().setAttribute("thisPageTranslators", currentPageTranslators);
                     request.getRequestDispatcher("WEB-INF/searchPage.jsp").forward(request, response);
-                } else if (pageNumber.isEmpty()) {
+                } else {
                     String firstName = request.getParameter("firstName");
                     String lastName = request.getParameter("lastName");
                     String middleName = request.getParameter("middleName");
                     String city = request.getParameter("city");
                     String cell = request.getParameter("cell");
                     String email = request.getParameter("email");
+
+
                 }
 
             } else {

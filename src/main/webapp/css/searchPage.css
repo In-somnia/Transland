@@ -68,19 +68,6 @@ main {
     box-shadow: 0 5px 10px #343434;
     border: 1px solid rosybrown;
 }
-.pointer-button {
-    padding: 10px;
-    height: 50px;
-    width: 200px;
-    font-size: 20px;
-    border-radius: 10px;
-    font-family: "Comic Sans MS", "Arial Black", "serif";
-    color: bisque;
-    background-color: brown;
-    box-shadow: 0 5px 10px #343434;
-    border: 1px solid rosybrown;
-    float: right;
-}
 .add-button {
     padding: 10px;
     height: 50px;
