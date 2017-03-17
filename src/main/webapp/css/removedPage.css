@@ -109,15 +109,12 @@ main {
 #profile-button {
     top: 90px;
 }
-#message-button {
+#colleagues-button {
     top: 160px;
 }
-#colleagues-button {
+#edit-button {
     top: 230px;
 }
-#edit-button {
-    top: 300px;
-}
 #delete-button {
-    top: 370px;
+    top: 300px;
 }
