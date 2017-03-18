@@ -33,7 +33,12 @@ h1 {
     right: 20px;
     width: 200px;
     float: right;
-
+}
+.localization {
+    position: absolute;
+    left: 20px;
+    bottom: 10px;
+    float: bottom;
 }
 #translator {
     float: left;
