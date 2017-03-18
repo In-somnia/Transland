@@ -8,11 +8,14 @@
   </head>
   <body>
   <c:set var="loc" value="${sessionScope.locale}"/>
+  <c:set var="def" value="${requestScope.locale}"/>
   <c:if test="${loc == null}">
-      <fmt:setBundle basename="index" var="index"/>
+      <fmt:setLocale value="${def}"/>
+
   </c:if>
   <c:if test="${loc != null}">
-      <fmt:setLocale value="${sessionScope.locale}"/>
+      <fmt:setLocale value="${loc}"/>
+
   </c:if>
   <fmt:setBundle basename="index" var="index"/>
   <fmt:message bundle="${index}" key="translator" var="translator"/>
@@ -29,7 +32,7 @@
           </form>
       </div>
       <div class="buttons">
-          <form action="employerRegistrationForm.jsp" method="post">
+          <form action="" method="post">
               <input class="button" id="employer" type="submit" value="${businessman}"/>
           </form>
       </div>

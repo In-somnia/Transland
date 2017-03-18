@@ -8,8 +8,9 @@
 </head>
 <body>
 <c:set var="loc" value="${sessionScope.locale}"/>
+<c:set var="def" value="${requestScope.locale}"/>
 <c:if test="${loc == null}">
-    <fmt:setBundle basename="index" var="index"/>
+    <fmt:setLocale value="${def}"/>
 </c:if>
 <c:if test="${loc != null}">
     <fmt:setLocale value="${sessionScope.locale}"/>
