@@ -13,8 +13,8 @@
     <fmt:setLocale value="${def}"/>
 </c:if>
 <c:if test="${loc != null}">
+    <fmt:setLocale value="${loc}"/>
 </c:if>
-<fmt:setBundle basename="translatorProfile" var="profile"/>
 <fmt:setBundle basename="translatorProfile" var="profile"/>
 <fmt:message bundle="${profile}" key="contacts" var="contacts"/>
 <fmt:message bundle="${profile}" key="city" var="city"/>

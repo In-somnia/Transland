@@ -42,7 +42,7 @@
                     <b>${contacts}</b>
                     <input type="text" required id="city" name="city" index="1" placeholder="${city}" value="${sessionScope.userData.city}"/><span id="er1" class="error hidden"></span>
                     <input type="text" required id="cell" name="cell" index="2" placeholder="${cell}" value="${sessionScope.userData.cell}"/><span id="er2" class="error hidden"></span>
-                    <b>Образование:</b>
+                    <b>${edu}:</b>
                     <input type="text" required id="university" name="university" index="3" placeholder="${uni}" value="${sessionScope.userData.education.university}"/><span id="er3" class="error hidden"></span>
                     <input type="text" required id="department" name="department" index="4" placeholder="${dep}" value="${sessionScope.userData.education.department}"/><span id="er4" class="error hidden"></span>
                     <div>

@@ -24,7 +24,6 @@
 <fmt:message bundle="${profile}" key="editbutton" var="edit"/>
 <fmt:message bundle="${profile}" key="deletebutton" var="del"/>
 <fmt:message bundle="${profile}" key="exitbutton" var="exit"/>
-
 <header><h1>Transland</h1></header>
 <main>
     <article class="profile">

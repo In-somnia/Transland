@@ -11,11 +11,9 @@
   <c:set var="def" value="${requestScope.locale}"/>
   <c:if test="${loc == null}">
       <fmt:setLocale value="${def}"/>
-
   </c:if>
   <c:if test="${loc != null}">
       <fmt:setLocale value="${loc}"/>
-
   </c:if>
   <fmt:setBundle basename="index" var="index"/>
   <fmt:message bundle="${index}" key="translator" var="translator"/>
