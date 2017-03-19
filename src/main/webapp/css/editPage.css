@@ -32,7 +32,6 @@ main {
     padding-left: 20px;
     padding-top: 45px;
 }
-
 .info {
     background-color: #628451;
     display: inline-block;
@@ -92,9 +91,8 @@ main {
     font-family: "Comic Sans MS", "Arial Black", "serif";
     font-size: 20px;
     color: bisque;
-
 }
-input:not(.button) {
+input:not(.button), #ed-form-input {
     width: 100%;
     padding: 5px;
     height: 35px;
@@ -108,7 +106,7 @@ input:not(.button) {
     display: inline-block;
     width: 48%;
 }
-#education-form {
+#ed-form-input {
     margin-right: 5px;
 }
 #graduation-year {

@@ -18,4 +18,5 @@ public interface TranslatorDao {
     long pageCounter(List<Long> list);
     List<Long> findColleaguesInDb(Map<Object, Object> map);
     List<Translator> getCurrentPageTranslators(int resultsPerPage, int pageNumber, List<Long> listOfIds);
+    Translator seeProfile(String email);
 }

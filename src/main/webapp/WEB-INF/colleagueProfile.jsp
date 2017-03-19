@@ -1,9 +1,9 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <html>
 <head>
-    <title>translator-profile</title>
+    <title>colleague-profile</title>
     <link rel="stylesheet" type="text/css" href=".././css/translatorProfilePage.css">
 </head>
 <body>
@@ -32,27 +32,26 @@
 <fmt:message bundle="${profile}" key="editbutton" var="edit"/>
 <fmt:message bundle="${profile}" key="deletebutton" var="del"/>
 <fmt:message bundle="${profile}" key="exitbutton" var="exit"/>
-
 <header><h1>Transland</h1></header>
 <main>
     <article class="profile">
         <section class="info">
             <div class="pic"></div>
-            <h2>${sessionScope.userData.firstName} ${sessionScope.userData.patronymic} ${sessionScope.userData.lastName}</h2>
+            <h2>${sessionScope.colleagueProfile.firstName} ${sessionScope.colleagueProfile.patronymic} ${sessionScope.colleagueProfile.lastName}</h2>
             <div class="contacts">
                 <p><b>${contacts}</b></p>
-                <p><b>${city}</b> ${sessionScope.userData.city}</p>
-                <p><b>${cell}</b> ${sessionScope.userData.cell}</p>
-                <p><b>${email}</b> ${sessionScope.userData.email}</p>
+                <p><b>${city}</b> ${sessionScope.colleagueProfile.city}</p>
+                <p><b>${cell}</b> ${sessionScope.colleagueProfile.cell}</p>
+                <p><b>${email}</b> ${sessionScope.colleagueProfile.email}</p>
             </div>
             <div class="education">
                 <p><b>${edu}</b></p>
-                <p><b>${uni}</b> ${sessionScope.userData.education.university}</p>
-                <p><b>${dep}</b> ${sessionScope.userData.education.department}</p>
-                <p><b>${edform}</b> ${sessionScope.userData.education.educationType.value}</p>
-                <p><b>${gradyear}</b> ${sessionScope.userData.education.graduationYear}</p>
-                <p><b>${exp}</b> ${sessionScope.userData.experience}</p>
-                <p><b>${info}</b> ${sessionScope.userData.info}</p>
+                <p><b>${uni}</b> ${sessionScope.colleagueProfile.education.university}</p>
+                <p><b>${dep}</b> ${sessionScope.colleagueProfile.education.department}</p>
+                <p><b>${edform}</b> ${sessionScope.colleagueProfile.education.educationType.value}</p>
+                <p><b>${gradyear}</b> ${sessionScope.colleagueProfile.education.graduationYear}</p>
+                <p><b>${exp}</b> ${sessionScope.colleagueProfile.experience}</p>
+                <p><b>${info}</b> ${sessionScope.colleagueProfile.info}</p>
             </div>
             <div class="about-myself">
             </div>

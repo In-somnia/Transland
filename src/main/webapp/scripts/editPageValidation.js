@@ -32,20 +32,13 @@ var editData = [
     },
     {
         index: 5,
-        id: "education-form",
-        name: "edForm",
-        pattern: "",
-        errorMessage: "Поле не должно быть пустым"
-    },
-    {
-        index: 6,
         id: "graduation-year",
         name: "gradYear",
         pattern: /^[0-9]{4}$/,
         errorMessage: "Четыре цифры в диапазоне 1950-2021"
     },
     {
-        index: 7,
+        index: 6,
         id: "experience",
         name: "experience",
         pattern: /^[А-Я0-9]?[А-Яа-я0-9\s]{1,19}$/,
@@ -57,7 +50,7 @@ var editValidationMap = {
         cell: false,
         university: false,
         department: false,
-        edForm: false,
+        edForm: true,
         gradYear: false,
         experience: false,
         info: false
@@ -67,7 +60,6 @@ document.getElementById("city").onchange = validateEditData;
 document.getElementById("cell").onchange = validateEditData;
 document.getElementById("university").onchange = validateEditData;
 document.getElementById("department").onchange = validateEditData;
-document.getElementById("ed-form-input").onchange = edFormValidation;
 document.getElementById("graduation-year").onchange = validateEditData;
 document.getElementById("experience").onchange = validateEditData;
 document.getElementById("info").onchange = editInfoProtect;
@@ -108,26 +100,4 @@ function editInfoProtect() {
     this.value = (this.value.replace(/</g, "&lt;")).replace(/>/g, "&gt;");
     var name = this.getAttribute("name");
     editValidationMap[name] = true;
-}
-
-function edFormValidation() {
-    var index = this.getAttribute("index");
-    var value = this.value;
-    var name = this.getAttribute("name");
-    var errorSpan = document.getElementById("er" + index);
-
-    if(value == null)
-    {
-        errorSpan.value = editData[index-1].errorMessage;
-        this.style.border = "red 2px solid";
-        errorSpan.classList.remove('hidden');
-        errorSpan.textContent = editData[index-1].errorMessage;
-        editValidationMap[name] = false;
-    }
-    else {
-        this.style.border = "";
-        editValidationMap[name] = true;
-        errorSpan.classList.add("hidden");
-        errorSpan.textContent = "";
-    }
 }

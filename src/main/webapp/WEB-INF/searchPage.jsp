@@ -26,7 +26,7 @@
 <fmt:message bundle="${search}" key="criteria" var="criteria"/>
 <fmt:message bundle="${search}" key="res" var="ressearch"/>
 <fmt:message bundle="${search}" key="find" var="find"/>
-<fmt:message bundle="${search}" key="addbutton" var="addbutton"/>
+<fmt:message bundle="${search}" key="watchbutton" var="watch"/>
 <fmt:setBundle basename="translatorProfile" var="profile"/>
 <fmt:message bundle="${profile}" key="mypagebutton" var="mypage"/>
 <fmt:message bundle="${profile}" key="exitbutton" var="exit"/>
@@ -42,12 +42,18 @@
     <aside class="search-block">
         <form id="search-form" action="SearchController?page=0" method="post">
             <p>${criteria}</p>
-            <input type="text" maxlength="20" id="first-name" name="firstName" index="1" placeholder="${name}"><span id="er1" class="error hidden"></span>
-            <input type="text" maxlength="20" id="last-name" name="lastName" index="2" placeholder="${surname}"><span id="er2" class="error hidden"></span>
-            <input type="text" maxlength="20" id="middle-name" name="middleName" index="3" placeholder="${patronymic}"><span id="er3" class="error hidden"></span>
-            <input type="text" maxlength="20" id="city" name="city" index="4" placeholder="${city}"><span id="er4" class="error hidden"></span>
-            <input type="tel" maxlength="16" id="cell" name="cell" index="5" placeholder="${cell}"><span id="er5" class="error hidden"></span>
-            <input type="email" maxlength="30" id="email" name="email" index="6" placeholder="${email}"><span id="er6" class="error hidden"></span>
+            <input type="text" maxlength="20" id="first-name" name="firstName" index="1" placeholder="${name}">
+            <span id="er1" class="error hidden"></span>
+            <input type="text" maxlength="20" id="last-name" name="lastName" index="2" placeholder="${surname}">
+            <span id="er2" class="error hidden"></span>
+            <input type="text" maxlength="20" id="middle-name" name="middleName" index="3" placeholder="${patronymic}">
+            <span id="er3" class="error hidden"></span>
+            <input type="text" maxlength="20" id="city" name="city" index="4" placeholder="${city}">
+            <span id="er4" class="error hidden"></span>
+            <input type="tel" maxlength="16" id="cell" name="cell" index="5" placeholder="${cell}">
+            <span id="er5" class="error hidden"></span>
+            <input type="email" maxlength="30" id="email" name="email" index="6" placeholder="${email}">
+            <span id="er6" class="error hidden"></span>
             <input class="button" id="search-button" type="submit" value="${find}"/>
         </form>
     </aside>
@@ -73,7 +79,10 @@
                     <c:out value="${translator.city}"/>
                     <c:out value="${translator.cell}"/>
                     <c:out value="${translator.email}"/></p></div>
-                    <button class="add-button">${addbutton}</button></div>
+                        <form class = "watch-form" action="SeeProfileController?${translator.email}" method="post">
+                            <button class="watch-button">${watch}</button>
+                        </form>
+                    </div>
             </c:forEach>
         </section>
     </article>

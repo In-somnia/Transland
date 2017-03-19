@@ -25,12 +25,21 @@ input:not(.button) {
     background-color: bisque;
     box-shadow: 0 2px 5px #404040;
 }
-
+#ed-form-input {
+    width: 100%;
+    padding: 5px;
+    height: 35px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: 1px solid rosybrown;
+    background-color: bisque;
+    box-shadow: 0 2px 5px #404040;
+}
 .half-width>input {
     margin-bottom: 0;
 }
 
-.half-width {
+.half-width div {
     display: inline-block;
     width: 48%;
 }

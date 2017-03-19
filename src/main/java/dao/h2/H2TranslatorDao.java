@@ -50,18 +50,9 @@ public class H2TranslatorDao implements TranslatorDao {
                     innerPreparedStatement.setLong(1, rs.getLong(9));
                     ResultSet innerResultSet = innerPreparedStatement.executeQuery();
 
-                    if (innerResultSet != null) {
-                        while (innerResultSet.next()) {
-                            Education education = new Education();
-                            education.setId(innerResultSet.getLong(1));
-                            education.setUniversity(innerResultSet.getString(2));
-                            education.setDepartment(innerResultSet.getString(3));
-                            education.setEducationType(EducationForm.valueOf(innerResultSet.getString(4)));
-                            education.setGraduationYear(innerResultSet.getInt(5));
+                    Education education = getEducationFromDb(innerResultSet);
+                    translator.setEducation(education);
 
-                            translator.setEducation(education);
-                        }
-                    }
                     translator.setPassword(rs.getString(10));
                     translator.setExperience(rs.getString(11));
                     translator.setInfo(rs.getString(12));
@@ -86,7 +77,7 @@ public class H2TranslatorDao implements TranslatorDao {
                     PreparedStatement.RETURN_GENERATED_KEYS)) {
             preparedStatement.setString(1, translator.getEducation().getUniversity());
             preparedStatement.setString(2, translator.getEducation().getDepartment());
-            preparedStatement.setObject(3, translator.getEducation().getEducationType().toString());
+            preparedStatement.setObject(3, translator.getEducation().getEducationType().getValue());
             preparedStatement.setInt(4, translator.getEducation().getGraduationYear());
 
             preparedStatement.executeUpdate();
@@ -155,20 +146,6 @@ public class H2TranslatorDao implements TranslatorDao {
         return false;
     }
 
-    private void updateIsRemovedInDB(long id, boolean param) {
-        String preparedQuery = "UPDATE Translator SET isRemoved=? WHERE id=?";
-        try (Connection connection = dataSource.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(preparedQuery)) {
-            preparedStatement.setBoolean(1, param);
-            preparedStatement.setLong(2, id);
-            preparedStatement.executeUpdate();
-        } catch(SQLException e) {
-            System.err.println("SQLException message:" + e.getMessage());
-            System.err.println("SQLException SQL state:" + e.getSQLState());
-            System.err.println("SQLException SQL error code:" + e.getErrorCode());
-        }
-    }
-
     public void editTranslatorData(Translator translator) {
         String preparedTranslatorQuery ="UPDATE Translator SET city=?, cell=? WHERE id=?";
         try (Connection connection = dataSource.getConnection();
@@ -188,7 +165,7 @@ public class H2TranslatorDao implements TranslatorDao {
              PreparedStatement preparedStatement = connection.prepareStatement(preparedEducationQuery)) {
             preparedStatement.setString(1, translator.getEducation().getUniversity());
             preparedStatement.setString(2, translator.getEducation().getDepartment());
-            preparedStatement.setString(3, translator.getEducation().getEducationType().toString());
+            preparedStatement.setString(3, translator.getEducation().getEducationType().getValue());
             preparedStatement.setInt(4, translator.getEducation().getGraduationYear());
             preparedStatement.setLong(5, translator.getEducation().getId());
 
@@ -279,5 +256,84 @@ public class H2TranslatorDao implements TranslatorDao {
             }
         }
        return currentPageTranslators;
+    }
+    public Translator seeProfile(String email) {
+        Translator translator = null;
+        String preparedQuery = "SELECT * FROM Translator WHERE email=?";
+
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(preparedQuery)) {
+            preparedStatement.setString(1, email);
+            ResultSet rs = preparedStatement.executeQuery();
+
+            if (rs != null) {
+                while (rs.next()) {
+                    translator = new Translator();
+                    translator.setId(rs.getLong(1));
+                    translator.setFirstName(rs.getString(2));
+                    translator.setLastName(rs.getString(3));
+                    translator.setPatronymic(rs.getString(4));
+                    translator.setIsTranslator(rs.getBoolean(5));
+                    translator.setCity(rs.getString(6));
+                    translator.setCell(rs.getString(7));
+                    translator.setEmail(rs.getString(8));
+
+                    PreparedStatement innerPreparedStatement = connection.prepareStatement(
+                            "SELECT * FROM Education " +
+                                    "WHERE email=?");
+                    innerPreparedStatement.setLong(1, rs.getLong(9));
+                    ResultSet innerResultSet = innerPreparedStatement.executeQuery();
+
+                    Education education = getEducationFromDb(innerResultSet);
+                    translator.setEducation(education);
+
+                    translator.setPassword(rs.getString(10));
+                    translator.setExperience(rs.getString(11));
+                    translator.setInfo(rs.getString(12));
+                    translator.setIsRemoved(rs.getBoolean(13));
+                }
+            }
+
+        } catch (SQLException e) {
+            System.err.println("SQLException message:" + e.getMessage());
+            System.err.println("SQLException SQL state:" + e.getSQLState());
+            System.err.println("SQLException SQL error code:" + e.getErrorCode());
+        }
+        return translator;
+    }
+
+    private void updateIsRemovedInDB(long id, boolean param) {
+        String preparedQuery = "UPDATE Translator SET isRemoved=? WHERE id=?";
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(preparedQuery)) {
+            preparedStatement.setBoolean(1, param);
+            preparedStatement.setLong(2, id);
+            preparedStatement.executeUpdate();
+        } catch(SQLException e) {
+            System.err.println("SQLException message:" + e.getMessage());
+            System.err.println("SQLException SQL state:" + e.getSQLState());
+            System.err.println("SQLException SQL error code:" + e.getErrorCode());
+        }
+    }
+
+    private Education getEducationFromDb(ResultSet resultSet) {
+        Education education = null;
+        try {
+            if (resultSet != null) {
+                while (resultSet.next()) {
+                    education = new Education();
+                    education.setId(resultSet.getLong(1));
+                    education.setUniversity(resultSet.getString(2));
+                    education.setDepartment(resultSet.getString(3));
+                    education.setEducationType(EducationForm.valueOf(resultSet.getString(4)));
+                    education.setGraduationYear(resultSet.getInt(5));
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println("SQLException message:" + e.getMessage());
+            System.err.println("SQLException SQL state:" + e.getSQLState());
+            System.err.println("SQLException SQL error code:" + e.getErrorCode());
+        }
+        return education;
     }
 }

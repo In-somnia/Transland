@@ -29,19 +29,4 @@ CREATE TABLE Translator(
   UNIQUE (email)
 );
 
-CREATE TABLE Employer(
-  id BIGINT AUTO_INCREMENT PRIMARY KEY,
-  first_name VARCHAR(20) NOT NULL,
-  last_name VARCHAR(20) NOT NULL,
-  patronymic VARCHAR(20),
-  is_translator BOOL NOT NULL,
-  city VARCHAR(20) NOT NULL,
-  cell VARCHAR(16) NOT NULL,
-  email VARCHAR(30) NOT NULL,
-  firm VARCHAR(30),
-  password VARCHAR(30) NOT NULL,
-
-  UNIQUE (id),
-  UNIQUE (email)
-);
 

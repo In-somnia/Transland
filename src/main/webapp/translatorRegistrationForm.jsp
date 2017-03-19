@@ -24,39 +24,53 @@
     <fmt:message bundle="${reg}" key="emailplaceholder" var="email"/>
     <fmt:message bundle="${reg}" key="uniplaceholder" var="uni"/>
     <fmt:message bundle="${reg}" key="departmentplaceholder" var="department"/>
-    <fmt:message bundle="${reg}" key="edformplaceholder" var="edform"/>
     <fmt:message bundle="${reg}" key="gradyearplaceholder" var="gradyear"/>
     <fmt:message bundle="${reg}" key="expplaceholder" var="exp"/>
     <fmt:message bundle="${reg}" key="infoplaceholder" var="info"/>
     <fmt:message bundle="${reg}" key="passplaceholder" var="pass"/>
     <fmt:message bundle="${reg}" key="nextbutton" var="next"/>
     <fmt:message bundle="${reg}" key="submitbutton" var="submit"/>
+    <fmt:message bundle="${reg}" key="fulltime" var="full"/>
+    <fmt:message bundle="${reg}" key="parttime" var="part"/>
 
         <form id="registration-form" action="TranslatorRegistrationController" method="post">
             <div id="part1">
-                <input type="text" maxlength="20" required id="first-name" name="firstName" index="1" placeholder="${fname}"><span id="er1" class="error hidden"></span>
-                <input type="text" maxlength="20" required id="last-name" name="lastName" index="2" placeholder="${lname}"><span id="er2" class="error hidden"></span>
-                <input type="text" maxlength="20" id="middle-name" name="middleName" index="3" placeholder="${mname}"><span id="er3" class="error hidden"></span>
-                <input type="text" maxlength="20" required id="city" name="city" index="4" placeholder="${city}"><span id="er4" class="error hidden"></span>
-                <input type="tel" maxlength="16" required id="cell" name="cell" index="5" placeholder="${cell}"><span id="er5" class="error hidden"></span>
-                <input type="email" maxlength="30" required id="email" name="email" index="6" placeholder="${email}"><span id="er6" class="error hidden"></span>
-                <input type="text" maxlength="50" required id="university" name="university" index="7" placeholder="${uni}"><span id="er7" class="error hidden"></span>
-                <input type="text" maxlength="50" id="department" name="department" index="8" placeholder="${department}"><span id="er8" class="error hidden"></span>
+                <input type="text" maxlength="20" required id="first-name" name="firstName" index="1" placeholder="${fname}">
+                <span id="er1" class="error hidden"></span>
+                <input type="text" maxlength="20" required id="last-name" name="lastName" index="2" placeholder="${lname}">
+                <span id="er2" class="error hidden"></span>
+                <input type="text" maxlength="20" id="middle-name" name="middleName" index="3" placeholder="${mname}">
+                <span id="er3" class="error hidden"></span>
+                <input type="text" maxlength="20" required id="city" name="city" index="4" placeholder="${city}">
+                <span id="er4" class="error hidden"></span>
+                <input type="tel" maxlength="16" required id="cell" name="cell" index="5" placeholder="${cell}">
+                <span id="er5" class="error hidden"></span>
+                <input type="email" maxlength="30" required id="email" name="email" index="6" placeholder="${email}">
+                <span id="er6" class="error hidden"></span>
+                <input type="text" maxlength="50" required id="university" name="university" index="7" placeholder="${uni}">
+                <span id="er7" class="error hidden"></span>
+                <input type="text" maxlength="50" id="department" name="department" index="8" placeholder="${department}">
+                <span id="er8" class="error hidden"></span>
                 <div class="half-width">
-                    <input type="text" maxlength="20" id="ed-form-input" required list="education-form" name="edForm" index="9" placeholder="${edform}"><span id="er9" class="error hidden"></span>
-                    <datalist id="education-form">
-                        <option value="FULL_TIME">
-                        <option value="PART_TIME">
-                    </datalist>
-                </div>
-                <div class="half-width">
-                    <input type="text" maxlength="4" required id="graduation-year" name="gradYear" index="10" placeholder="${gradyear}"><span id="er10" class="error hidden"></span>
+                    <div>
+                    <select name="edForm" id="ed-form-input" required>
+                        <option value="FULL_TIME">${full}</option>
+                        <option value="PART_TIME">${part}</option>
+                    </select>
+                    <span id="er9" class="error hidden"></span>
+                    </div>
+                    <div>
+                        <input type="text" maxlength="4" required id="graduation-year" name="gradYear" index="9" placeholder="${gradyear}">
+                        <span id="er10" class="error hidden"></span>
+                    </div>
                 </div>
             </div>
             <div id="part2" class="hidden">
-                <input type="text" maxlength="20" id="experience" name="experience" index="11" placeholder="${exp}"><span id="er11" class="error hidden"></span>
+                <input type="text" maxlength="20" id="experience" name="experience" index="10" placeholder="${exp}">
+                <span id="er11" class="error hidden"></span>
                 <textarea id="info" maxlength="150" name="info" placeholder="${info}"></textarea>
-                <input type="password" maxlength="30" minlength="6" required id="password" name="password" index="12" placeholder="${pass}"><span id="er12" class="error hidden"></span>
+                <input type="password" maxlength="30" minlength="6" required id="password" name="password" index="11" placeholder="${pass}">
+                <span id="er12" class="error hidden"></span>
             </div>
         </form>
         <div id = "button-part1" class="next-button">

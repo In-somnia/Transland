@@ -70,14 +70,6 @@ var valiData = [
     },
     {
         index: 9,
-        id: "education-form",
-        name: "edForm",
-        pattern: "",
-        page: 1,
-        errorMessage: "Поле не должно быть пустым"
-    },
-    {
-        index: 10,
         id: "graduation-year",
         name: "gradYear",
         pattern: /^[0-9]{4}$/,
@@ -85,7 +77,7 @@ var valiData = [
         errorMessage: "Четыре цифры в диапазоне 1950-2021"
     },
     {
-        index: 11,
+        index: 10,
         id: "experience",
         name: "experience",
         pattern: /^[А-Я0-9]?[А-Яа-я0-9\s]{1,19}$/,
@@ -93,7 +85,7 @@ var valiData = [
         errorMessage: "Кириллица, цифры и пробел не более 20 символов"
     },
     {
-        index: 12,
+        index: 11,
         id: "password",
         name: "password",
         pattern: /[A-za-z0-9]{6,50}/,
@@ -112,7 +104,7 @@ var validationMap = {
         email: false,
         university: false,
         department: false,
-        edForm: false,
+        edForm: true,
         gradYear: false
     },
     2:{
@@ -122,7 +114,6 @@ var validationMap = {
     }
 };
 
-
 document.getElementById("first-name").onchange = validate;
 document.getElementById("middle-name").onchange = validate;
 document.getElementById("last-name").onchange = validate;
@@ -131,7 +122,6 @@ document.getElementById("cell").onchange = validate;
 document.getElementById("email").onchange = validate;
 document.getElementById("university").onchange = validate;
 document.getElementById("department").onchange = validate;
-document.getElementById("ed-form-input").onchange = checkEdForm;
 document.getElementById("graduation-year").onchange = validate;
 document.getElementById("experience").onchange = validate;
 document.getElementById("info").onchange = protectInfo;
@@ -177,27 +167,6 @@ function validate(){
      validationMap[currentView][name] = true;
  }
 
- function checkEdForm() {
-     var index = this.getAttribute("index");
-     var val = this.value;
-     var name = this.getAttribute("name");
-     var errorSpan = document.getElementById("er" + index);
-
-    if(val == null)
-    {
-        errorSpan.value = valiData[index-1].errorMessage;
-        this.style.border = "red 2px solid";
-        errorSpan.classList.remove('hidden');
-        errorSpan.textContent = valiData[index-1].errorMessage;
-        validationMap[currentView][name] = false;
-    }
-    else {
-        this.style.border = "";
-        validationMap[currentView][name] = true;
-        errorSpan.classList.add("hidden");
-        errorSpan.textContent = "";
-    }
- }
 
 
 

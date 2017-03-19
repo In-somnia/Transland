@@ -30,6 +30,8 @@
 <fmt:message bundle="${reg}" key="gradyearplaceholder" var="gradyear"/>
 <fmt:message bundle="${reg}" key="expplaceholder" var="exp"/>
 <fmt:message bundle="${reg}" key="infoplaceholder" var="info"/>
+<fmt:message bundle="${reg}" key="fulltime" var="full"/>
+<fmt:message bundle="${reg}" key="parttime" var="part"/>
 
 
     <header><h1>Transland</h1></header>
@@ -40,25 +42,28 @@
                 <h2>${sessionScope.userData.firstName} ${sessionScope.userData.patronymic} ${sessionScope.userData.lastName}</h2>
                 <form class="form" id="edit-form" action="PageEditController" method="post">
                     <b>${contacts}</b>
-                    <input type="text" required id="city" name="city" index="1" placeholder="${city}" value="${sessionScope.userData.city}"/><span id="er1" class="error hidden"></span>
-                    <input type="text" required id="cell" name="cell" index="2" placeholder="${cell}" value="${sessionScope.userData.cell}"/><span id="er2" class="error hidden"></span>
+                    <input type="text" required id="city" name="city" index="1" placeholder="${city}" value="${sessionScope.userData.city}"/>
+                    <span id="er1" class="error hidden"></span>
+                    <input type="text" required id="cell" name="cell" index="2" placeholder="${cell}" value="${sessionScope.userData.cell}"/>
+                    <span id="er2" class="error hidden"></span>
                     <b>${edu}:</b>
-                    <input type="text" required id="university" name="university" index="3" placeholder="${uni}" value="${sessionScope.userData.education.university}"/><span id="er3" class="error hidden"></span>
-                    <input type="text" required id="department" name="department" index="4" placeholder="${dep}" value="${sessionScope.userData.education.department}"/><span id="er4" class="error hidden"></span>
+                    <input type="text" required id="university" name="university" index="3" placeholder="${uni}" value="${sessionScope.userData.education.university}"/>
+                    <span id="er3" class="error hidden"></span>
+                    <input type="text" required id="department" name="department" index="4" placeholder="${dep}" value="${sessionScope.userData.education.department}"/>
+                    <span id="er4" class="error hidden"></span>
                     <div>
                         <div class="half-width">
-                            <input type="text" id="ed-form-input" required list="education-form" name="edForm" index="5" placeholder="${edform}"><span id="er5" class="error hidden"></span>
-                            <datalist id="education-form">
-                                <option value="FULL_TIME">
-                                <option value="PART_TIME">
-                            </datalist>
+                            <select id="ed-form-input" name="edForm">
+                                <option value="FULL_TIME">${full}</option>
+                                <option value="PART_TIME">${part}</option>
+                            </select>
                         </div>
                         <div class="half-width">
-                            <input type="text" required id="graduation-year" class="half-width" name="gradYear" index="6" placeholder="${gradyear}" value="${sessionScope.userData.education.graduationYear}"/><span id="er6" class="error hidden"></span>
+                            <input type="text" required id="graduation-year" class="half-width" name="gradYear" index="5" placeholder="${gradyear}" value="${sessionScope.userData.education.graduationYear}"/><span id="er6" class="error hidden"></span>
                         </div>
                     </div>
-                    <input type="text" required id="experience" name="experience" index="7" placeholder="${exp}" value="${sessionScope.userData.experience}"/><span id="er7" class="error hidden"></span>
-                    <input type="text" required id="info" name="info" index="8" placeholder="${info}" value="${sessionScope.userData.info}"/><span id="er8" class="error hidden"></span>
+                    <input type="text" required id="experience" name="experience" index="6" placeholder="${exp}" value="${sessionScope.userData.experience}"/><span id="er7" class="error hidden"></span>
+                    <input type="text" required id="info" name="info" index="7" placeholder="${info}" value="${sessionScope.userData.info}"/><span id="er8" class="error hidden"></span>
                     <input class="button" id="save" type="submit" value="${save}"/>
                 </form>
             </section>
