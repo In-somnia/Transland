@@ -90,10 +90,8 @@ function validateEditData(){
 
 function checkEditPattern(index, value) {
     var pattern = editData[index-1].pattern;
-    if (pattern.test(value)) {
-        return true;
-    }
-    return false;
+    return pattern.test(value);
+
 }
 function editInfoProtect() {
 

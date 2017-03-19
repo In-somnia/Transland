@@ -79,9 +79,11 @@
                     <c:out value="${translator.city}"/>
                     <c:out value="${translator.cell}"/>
                     <c:out value="${translator.email}"/></p></div>
-                        <form class = "watch-form" action="SeeProfileController?${translator.email}" method="post">
-                            <button class="watch-button">${watch}</button>
-                        </form>
+                        <div class="watch-block">
+                            <form class = "watch-form" action="SeeProfileController?id=${translator.id}" method="post">
+                                <button class="watch-button">${watch}</button>
+                            </form>
+                        </div>
                     </div>
             </c:forEach>
         </section>

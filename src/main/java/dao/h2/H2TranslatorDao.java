@@ -4,6 +4,8 @@ import dao.TranslatorDao;
 import model.Education;
 import model.EducationForm;
 import model.Translator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.sql.DataSource;
 import java.sql.*;
@@ -13,6 +15,7 @@ import java.util.Map;
 
 
 public class H2TranslatorDao implements TranslatorDao {
+    static final Logger LOG = LoggerFactory.getLogger(H2TranslatorDao.class);
 
     private DataSource dataSource;
 
@@ -61,9 +64,9 @@ public class H2TranslatorDao implements TranslatorDao {
             }
 
         } catch (SQLException e) {
-            System.err.println("SQLException message:" + e.getMessage());
-            System.err.println("SQLException SQL state:" + e.getSQLState());
-            System.err.println("SQLException SQL error code:" + e.getErrorCode());
+            LOG.debug("SQLException message:" + e.getMessage());
+            LOG.debug("SQLException SQL state:" + e.getSQLState());
+            LOG.debug("SQLException SQL error code:" + e.getErrorCode());
         }
         return translator;
     }
@@ -108,9 +111,9 @@ public class H2TranslatorDao implements TranslatorDao {
                     translator.setId(generatedKeys.getInt(1));
             }
         } catch (SQLException e) {
-            System.err.println("SQLException message:" + e.getMessage());
-            System.err.println("SQLException SQL state:" + e.getSQLState());
-            System.err.println("SQLException SQL error code:" + e.getErrorCode());
+            LOG.debug("SQLException message:" + e.getMessage());
+            LOG.debug("SQLException SQL state:" + e.getSQLState());
+            LOG.debug("SQLException SQL error code:" + e.getErrorCode());
         }
         return translator.getId();
     }
@@ -128,20 +131,22 @@ public class H2TranslatorDao implements TranslatorDao {
                 result = rs.getBoolean(1);
             }
         } catch(SQLException e) {
-            System.err.println("SQLException message:" + e.getMessage());
-            System.err.println("SQLException SQL state:" + e.getSQLState());
-            System.err.println("SQLException SQL error code:" + e.getErrorCode());
+            LOG.debug("SQLException message:" + e.getMessage());
+            LOG.debug("SQLException SQL state:" + e.getSQLState());
+            LOG.debug("SQLException SQL error code:" + e.getErrorCode());
         }
         return result;
     }
 
     public boolean removePage(long id) {
         boolean param = true;
+        //noinspection ConstantConditions
         updateIsRemovedInDB(id, param);
         return true;
     }
     public boolean restorePage(long id) {
         boolean param = false;
+        //noinspection ConstantConditions
         updateIsRemovedInDB(id, param);
         return false;
     }
@@ -156,9 +161,9 @@ public class H2TranslatorDao implements TranslatorDao {
 
             preparedStatement.executeUpdate();
         } catch(SQLException e) {
-            System.err.println("SQLException message:" + e.getMessage());
-            System.err.println("SQLException SQL state:" + e.getSQLState());
-            System.err.println("SQLException SQL error code:" + e.getErrorCode());
+            LOG.debug("SQLException message:" + e.getMessage());
+            LOG.debug("SQLException SQL state:" + e.getSQLState());
+            LOG.debug("SQLException SQL error code:" + e.getErrorCode());
         }
         String preparedEducationQuery ="UPDATE Education SET university=?, department=?, education_type=?, graduation_date=? WHERE id=?";
         try (Connection connection = dataSource.getConnection();
@@ -171,9 +176,9 @@ public class H2TranslatorDao implements TranslatorDao {
 
             preparedStatement.executeUpdate();
         } catch(SQLException e) {
-            System.err.println("SQLException message:" + e.getMessage());
-            System.err.println("SQLException SQL state:" + e.getSQLState());
-            System.err.println("SQLException SQL error code:" + e.getErrorCode());
+            LOG.debug("SQLException message:" + e.getMessage());
+            LOG.debug("SQLException SQL state:" + e.getSQLState());
+            LOG.debug("SQLException SQL error code:" + e.getErrorCode());
         }
     }
 
@@ -189,9 +194,9 @@ public class H2TranslatorDao implements TranslatorDao {
                 translatorIds.add(resultSet.getLong(1));
             }
         } catch(SQLException e) {
-            System.err.println("SQLException message:" + e.getMessage());
-            System.err.println("SQLException SQL state:" + e.getSQLState());
-            System.err.println("SQLException SQL error code:" + e.getErrorCode());
+            LOG.debug("SQLException message:" + e.getMessage());
+            LOG.debug("SQLException SQL state:" + e.getSQLState());
+            LOG.debug("SQLException SQL error code:" + e.getErrorCode());
         }
         return translatorIds;
     }
@@ -224,9 +229,8 @@ public class H2TranslatorDao implements TranslatorDao {
             listOfQueries.add(queryParam);
         }
         String querySum = "";
-        for (int i = 0; i < listOfQueries.size(); i++)
-        {
-            querySum = querySum + listOfQueries.get(i) + " AND ";
+        for (String query : listOfQueries) {
+            querySum = querySum + query + " AND ";
         }
         String finalQuery = querySum.trim().substring(0, querySum.length()-5);
 
@@ -238,9 +242,9 @@ public class H2TranslatorDao implements TranslatorDao {
             listOfIds.add(resultSet.getLong(1));
          }
          }catch(SQLException e) {
-             System.err.println("SQLException message:" + e.getMessage());
-             System.err.println("SQLException SQL state:" + e.getSQLState());
-             System.err.println("SQLException SQL error code:" + e.getErrorCode());
+             LOG.debug("SQLException message:" + e.getMessage());
+             LOG.debug("SQLException SQL state:" + e.getSQLState());
+             LOG.debug("SQLException SQL error code:" + e.getErrorCode());
          }
         return listOfIds;
     }
@@ -257,50 +261,6 @@ public class H2TranslatorDao implements TranslatorDao {
         }
        return currentPageTranslators;
     }
-    public Translator seeProfile(String email) {
-        Translator translator = null;
-        String preparedQuery = "SELECT * FROM Translator WHERE email=?";
-
-        try (Connection connection = dataSource.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(preparedQuery)) {
-            preparedStatement.setString(1, email);
-            ResultSet rs = preparedStatement.executeQuery();
-
-            if (rs != null) {
-                while (rs.next()) {
-                    translator = new Translator();
-                    translator.setId(rs.getLong(1));
-                    translator.setFirstName(rs.getString(2));
-                    translator.setLastName(rs.getString(3));
-                    translator.setPatronymic(rs.getString(4));
-                    translator.setIsTranslator(rs.getBoolean(5));
-                    translator.setCity(rs.getString(6));
-                    translator.setCell(rs.getString(7));
-                    translator.setEmail(rs.getString(8));
-
-                    PreparedStatement innerPreparedStatement = connection.prepareStatement(
-                            "SELECT * FROM Education " +
-                                    "WHERE email=?");
-                    innerPreparedStatement.setLong(1, rs.getLong(9));
-                    ResultSet innerResultSet = innerPreparedStatement.executeQuery();
-
-                    Education education = getEducationFromDb(innerResultSet);
-                    translator.setEducation(education);
-
-                    translator.setPassword(rs.getString(10));
-                    translator.setExperience(rs.getString(11));
-                    translator.setInfo(rs.getString(12));
-                    translator.setIsRemoved(rs.getBoolean(13));
-                }
-            }
-
-        } catch (SQLException e) {
-            System.err.println("SQLException message:" + e.getMessage());
-            System.err.println("SQLException SQL state:" + e.getSQLState());
-            System.err.println("SQLException SQL error code:" + e.getErrorCode());
-        }
-        return translator;
-    }
 
     private void updateIsRemovedInDB(long id, boolean param) {
         String preparedQuery = "UPDATE Translator SET isRemoved=? WHERE id=?";
@@ -310,9 +270,9 @@ public class H2TranslatorDao implements TranslatorDao {
             preparedStatement.setLong(2, id);
             preparedStatement.executeUpdate();
         } catch(SQLException e) {
-            System.err.println("SQLException message:" + e.getMessage());
-            System.err.println("SQLException SQL state:" + e.getSQLState());
-            System.err.println("SQLException SQL error code:" + e.getErrorCode());
+            LOG.debug("SQLException message:" + e.getMessage());
+            LOG.debug("SQLException SQL state:" + e.getSQLState());
+            LOG.debug("SQLException SQL error code:" + e.getErrorCode());
         }
     }
 
@@ -330,9 +290,9 @@ public class H2TranslatorDao implements TranslatorDao {
                 }
             }
         } catch (SQLException e) {
-            System.err.println("SQLException message:" + e.getMessage());
-            System.err.println("SQLException SQL state:" + e.getSQLState());
-            System.err.println("SQLException SQL error code:" + e.getErrorCode());
+            LOG.debug("SQLException message:" + e.getMessage());
+            LOG.debug("SQLException SQL state:" + e.getSQLState());
+            LOG.debug("SQLException SQL error code:" + e.getErrorCode());
         }
         return education;
     }

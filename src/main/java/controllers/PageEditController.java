@@ -39,35 +39,35 @@ public class PageEditController extends HttpServlet {
         String info = request.getParameter("info").trim().replace("<", "&lt;").replace(">", "&gt;");
 
         boolean editDataCheck = false;
-        if (city.isEmpty() || city.length() < 1 || city.length() > 20)
+        if (city.isEmpty() || city.length() < 1 || city.length() > 21)
         {
             editDataCheck = true;
         }
-        if (cell.isEmpty() || cell.length() < 1 || cell.length() > 16)
+        if (cell.isEmpty() || cell.length() < 1 || cell.length() > 17)
         {
             editDataCheck = true;
         }
-        if (university.isEmpty() || university.length() < 1 || university.length() > 50)
-        {
-            editDataCheck = true;
-        }
-
-        if (department.isEmpty() || department.length() < 1 || department.length() > 50)
+        if (university.isEmpty() || university.length() < 1 || university.length() > 51)
         {
             editDataCheck = true;
         }
 
-        if (graduationYear < 1950 || graduationYear > 2021)
+        if (department.isEmpty() || department.length() < 1 || department.length() > 51)
         {
             editDataCheck = true;
         }
 
-        if (experience.isEmpty() || department.length() < 1 || department.length() > 20)
+        if (graduationYear < 1949 || graduationYear > 2022)
         {
             editDataCheck = true;
         }
 
-        if (info.length() > 150)
+        if (experience.isEmpty() || department.length() < 1 || department.length() > 21)
+        {
+            editDataCheck = true;
+        }
+
+        if (info.length() > 151)
         {
             editDataCheck = true;
         }

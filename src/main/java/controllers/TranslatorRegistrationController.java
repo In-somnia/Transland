@@ -46,42 +46,42 @@ public class TranslatorRegistrationController extends HttpServlet {
         String password = request.getParameter("password").trim();
 
         boolean validationCheck = false;
-        if (firstName.isEmpty() || firstName.length() < 1 || firstName.length() > 20) {
+        if (firstName.isEmpty() || firstName.length() < 1 || firstName.length() > 21) {
             validationCheck = true;
         }
-        if (lastName.isEmpty() || lastName.length() < 1 || lastName.length() > 20) {
+        if (lastName.isEmpty() || lastName.length() < 1 || lastName.length() > 21) {
             validationCheck = true;
         }
-        if (middleName.isEmpty() || middleName.length() < 1 || middleName.length() > 20) {
+        if (middleName.isEmpty() || middleName.length() < 1 || middleName.length() > 21) {
             validationCheck = true;
         }
-        if (city.isEmpty() || city.length() < 1 || city.length() > 20) {
+        if (city.isEmpty() || city.length() < 1 || city.length() > 21) {
             validationCheck = true;
         }
-        if (cell.isEmpty() || cell.length() < 1 || cell.length() > 16) {
+        if (cell.isEmpty() || cell.length() < 1 || cell.length() > 17) {
             validationCheck = true;
         }
-        if (email.isEmpty() || email.length() < 1 || email.length() > 30) {
-            validationCheck = true;
-        }
-
-        if (university.isEmpty() || university.length() < 1 || university.length() > 50) {
+        if (email.isEmpty() || email.length() < 1 || email.length() > 31) {
             validationCheck = true;
         }
 
-        if (department.isEmpty() || department.length() < 1 || department.length() > 50) {
+        if (university.isEmpty() || university.length() < 1 || university.length() > 51) {
             validationCheck = true;
         }
-        if (graduationYear < 1950 || graduationYear > 2021) {
+
+        if (department.isEmpty() || department.length() < 1 || department.length() > 51) {
             validationCheck = true;
         }
-        if (experience.isEmpty() || department.length() < 1 || department.length() > 20) {
+        if (graduationYear < 1949 || graduationYear > 2022) {
+            validationCheck = true;
+        }
+        if (experience.isEmpty() || department.length() < 1 || department.length() > 21) {
             validationCheck = true;
         }
         if (info.length() > 150) {
             validationCheck = true;
         }
-        if (password.isEmpty() || password.length() < 6 || password.length() > 30) {
+        if (password.isEmpty() || password.length() < 6 || password.length() > 31) {
             validationCheck = true;
         }
         if (!validationCheck) {

@@ -48,10 +48,8 @@ function validateAuth() {
 
 function checkPattern(index, value) {
     var pattern = authData[index-1].pattern;
-    if (pattern.test(value)) {
-        return true;
-    }
-    return false;
+    return pattern.test(value);
+
 }
 
 

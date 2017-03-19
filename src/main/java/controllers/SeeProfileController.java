@@ -1,11 +1,10 @@
 package controllers;
 
-import dao.DaoManager;
+
 import model.Translator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -19,12 +18,6 @@ import java.util.List;
 @WebServlet("/SeeProfileController")
 public class SeeProfileController extends HttpServlet {
     static final Logger LOG = LoggerFactory.getLogger(SeeProfileController.class);
-    private DaoManager daoManager;
-
-    @Override
-    public void init(ServletConfig config) throws ServletException {
-        daoManager = (DaoManager)config.getServletContext().getAttribute("DaoManager");
-    }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html");
@@ -34,15 +27,16 @@ public class SeeProfileController extends HttpServlet {
             boolean isRemoved = (boolean) request.getSession().getAttribute("removed");
             if (!isRemoved) {
                 LOG.info("Removal check is completed");
-                List<Translator> pageResults = (ArrayList)request.getSession().getAttribute("thisPageTranslators");
-                for (int i = 0; i < 4; i++) {
+                String receivedId = request.getParameter("id");
+                @SuppressWarnings("unchecked") List<Translator> pageResults =
+                        (ArrayList)request.getSession().getAttribute("thisPageTranslators");
+                for (Translator translator : pageResults) {
 
-                    if (request.getParameter(pageResults.get(i).getEmail()) != null) {
-                        request.getSession().setAttribute("colleagueProfile", pageResults.get(i));
+                    if (String.valueOf(translator.getId()).equals(receivedId)) {
+                        request.getSession().setAttribute("colleagueProfile", translator);
                         request.getRequestDispatcher("/WEB-INF/colleagueProfile.jsp").forward(request, response);
                     }
                 }
-
             } else {
                 LOG.warn("This user's page has been removed. Redirecting to a removed page...");
                 request.getRequestDispatcher("WEB-INF/removedPage.jsp").forward(request, response);

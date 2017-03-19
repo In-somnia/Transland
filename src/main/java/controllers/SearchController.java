@@ -57,22 +57,22 @@ public class SearchController extends HttpServlet {
                     String cell = request.getParameter("cell");
                     String email = request.getParameter("email").replace("<", "&lt;").replace(">", "&gt;");
 
-                    if (!firstName.isEmpty() && firstName.length() > 0 && firstName.length() < 20) {
+                    if (!firstName.isEmpty() && firstName.length() > 0 && firstName.length() < 21) {
                         paramMap.put("first_name", "\'" + firstName + "\'");
                     }
-                    if (!lastName.isEmpty() && lastName.length() > 0 && lastName.length() < 20) {
+                    if (!lastName.isEmpty() && lastName.length() > 0 && lastName.length() < 21) {
                         paramMap.put("last_name", "\'" + lastName + "\'");
                     }
-                    if (!middleName.isEmpty() && middleName.length() > 0 && middleName.length() < 20) {
+                    if (!middleName.isEmpty() && middleName.length() > 0 && middleName.length() < 21) {
                         paramMap.put("patronymic", "\'" + middleName + "\'");
                     }
-                    if (!city.isEmpty() && city.length() > 0 && city.length() < 20) {
+                    if (!city.isEmpty() && city.length() > 0 && city.length() < 21) {
                         paramMap.put("city", "\'" + city + "\'");
                     }
-                    if (!cell.isEmpty() && cell.length() > 0 && cell.length() < 16) {
+                    if (!cell.isEmpty() && cell.length() > 0 && cell.length() < 17) {
                         paramMap.put("cell", "\'" + cell + "\'");
                     }
-                    if (!email.isEmpty() && email.length() > 0 && email.length() < 30) {
+                    if (!email.isEmpty() && email.length() > 0 && email.length() < 31) {
                         paramMap.put("email", "\'" + email + "\'");
                     }
                     List<Long> foundIds = daoManager.getTranslatorDao().findColleaguesInDb(paramMap);

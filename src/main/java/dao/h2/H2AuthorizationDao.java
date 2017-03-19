@@ -1,6 +1,8 @@
 package dao.h2;
 
 import dao.AuthorizationDao;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
@@ -9,6 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class H2AuthorizationDao implements AuthorizationDao {
+    static final Logger LOG = LoggerFactory.getLogger(H2AuthorizationDao.class);
 
     private DataSource dataSource;
 
@@ -37,9 +40,9 @@ public class H2AuthorizationDao implements AuthorizationDao {
 
         } catch(SQLException e)
         {
-            System.err.println("SQLException message:" + e.getMessage());
-            System.err.println("SQLException SQL state:" + e.getSQLState());
-            System.err.println("SQLException SQL error code:" + e.getErrorCode());
+            LOG.debug("SQLException message:" + e.getMessage());
+            LOG.debug("SQLException SQL state:" + e.getSQLState());
+            LOG.debug("SQLException SQL error code:" + e.getErrorCode());
         }
         return result;
     }

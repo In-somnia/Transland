@@ -41,10 +41,8 @@
 </html>
 <script>
     function checkAuthValid(){
-        if (checkAuthMap["email"] == true && checkAuthMap["password"] == true) {
-            return true;
-        }
-        return false;
+        return checkAuthMap["email"] == true && checkAuthMap["password"] == true;
+
     }
 
     function submitAuth() {

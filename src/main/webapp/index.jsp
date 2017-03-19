@@ -22,7 +22,6 @@
   <fmt:message bundle="${index}" key="english" var="english"/>
   <fmt:message bundle="${index}" key="russian" var="russian"/>
 
-
       <h1>Transland</h1>
       <div class="buttons">
           <form action="translatorRegistrationForm.jsp" method="post">

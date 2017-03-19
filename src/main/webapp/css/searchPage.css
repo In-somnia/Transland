@@ -81,6 +81,10 @@ main {
     border: 1px solid rosybrown;
     float: right;
 }
+.watch-block {
+    display: inline-block;
+    float: right;
+}
 .search-block {
     float: left;
     margin-left: 20px;
