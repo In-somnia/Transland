@@ -5,6 +5,8 @@ import dao.DaoManager;
 import model.Education;
 import model.EducationForm;
 import model.Translator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -17,9 +19,8 @@ import java.io.IOException;
 
 @WebServlet("/TranslatorRegistrationController")
 public class TranslatorRegistrationController extends HttpServlet {
-
+    static final Logger LOG = LoggerFactory.getLogger(TranslatorRegistrationController.class);
     private DaoManager daoManager;
-    public static final String USER_ID = "id";
 
     @Override
     public void init(ServletConfig config) throws ServletException {
@@ -29,47 +30,38 @@ public class TranslatorRegistrationController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         response.setContentType("text/html");
-
-        String firstName = request.getParameter("firstName").trim();
-        String lastName = request.getParameter("lastName").trim();
-        String middleName = request.getParameter("middleName").trim();
-        String city = request.getParameter("city").trim();
-        String cell = request.getParameter("cell").trim();
-        String email = request.getParameter("email").trim();
-        String university = request.getParameter("university").trim();
-        String department = request.getParameter("department").trim();
+        LOG.info("Validating data...");
+        String firstName = request.getParameter("firstName").trim().replace("<", "&lt;").replace(">", "&gt;");
+        String lastName = request.getParameter("lastName").trim().replace("<", "&lt;").replace(">", "&gt;");
+        String middleName = request.getParameter("middleName").trim().replace("<", "&lt;").replace(">", "&gt;");
+        String city = request.getParameter("city").trim().replace("<", "&lt;").replace(">", "&gt;");
+        String cell = request.getParameter("cell").trim().replace("<", "&lt;");
+        String email = request.getParameter("email").trim().replace("<", "&lt;").replace(">", "&gt;");
+        String university = request.getParameter("university").trim().replace("<", "&lt;").replace(">", "&gt;");
+        String department = request.getParameter("department").trim().replace("<", "&lt;").replace(">", "&gt;");
         EducationForm educationType = EducationForm.valueOf(request.getParameter("edForm"));
         int graduationYear = Integer.parseInt(request.getParameter("gradYear"));
-        String experience = request.getParameter("experience").trim();
-        String info = request.getParameter("info").trim();
+        String experience = request.getParameter("experience").trim().replace("<", "&lt;").replace(">", "&gt;");
+        String info = request.getParameter("info").trim().replace("<", "&lt;").replace(">", "&gt;");
         String password = request.getParameter("password").trim();
 
-
         boolean validationCheck = false;
-
-
-        if (firstName.isEmpty() || firstName.length() < 1 || firstName.length() > 50) {
-            validationCheck = true;
-
-        }
-
-        if (lastName.isEmpty() || lastName.length() < 1 || lastName.length() > 50) {
+        if (firstName.isEmpty() || firstName.length() < 1 || firstName.length() > 20) {
             validationCheck = true;
         }
-
-        if (middleName.isEmpty() || middleName.length() < 1 || middleName.length() > 50) {
+        if (lastName.isEmpty() || lastName.length() < 1 || lastName.length() > 20) {
             validationCheck = true;
         }
-
-        if (city.isEmpty() || city.length() < 1 || city.length() > 50) {
+        if (middleName.isEmpty() || middleName.length() < 1 || middleName.length() > 20) {
             validationCheck = true;
         }
-
-        if (cell.isEmpty() || cell.length() < 1 || cell.length() > 50) {
+        if (city.isEmpty() || city.length() < 1 || city.length() > 20) {
             validationCheck = true;
         }
-
-        if (email.isEmpty() || email.length() < 1 || email.length() > 100) {
+        if (cell.isEmpty() || cell.length() < 1 || cell.length() > 16) {
+            validationCheck = true;
+        }
+        if (email.isEmpty() || email.length() < 1 || email.length() > 30) {
             validationCheck = true;
         }
 
@@ -80,22 +72,18 @@ public class TranslatorRegistrationController extends HttpServlet {
         if (department.isEmpty() || department.length() < 1 || department.length() > 50) {
             validationCheck = true;
         }
-
         if (graduationYear < 1950 || graduationYear > 2021) {
             validationCheck = true;
         }
-
         if (experience.isEmpty() || department.length() < 1 || department.length() > 20) {
             validationCheck = true;
         }
-
-        if (info.length() > 250) {
+        if (info.length() > 150) {
             validationCheck = true;
         }
-        if (password.isEmpty() || password.length() < 6 || password.length() > 50) {
+        if (password.isEmpty() || password.length() < 6 || password.length() > 30) {
             validationCheck = true;
         }
-
         if (!validationCheck) {
 
             Translator translator = new Translator();
@@ -108,7 +96,6 @@ public class TranslatorRegistrationController extends HttpServlet {
             translator.setEmail(email);
 
             Education education = new Education();
-
             education.setUniversity(university);
             education.setDepartment(department);
             education.setEducationType(educationType);
@@ -121,9 +108,11 @@ public class TranslatorRegistrationController extends HttpServlet {
             translator.setIsRemoved(false);
 
             long id = daoManager.getTranslatorDao().create(translator);
-            request.setAttribute(USER_ID, id);
+            request.setAttribute("id", id);
+            LOG.info("Validation completed. Registration is successful");
             request.getRequestDispatcher("authorizationPage.jsp").forward(request, response);
         } else {
+            LOG.warn("Invalid registration data. Redirecting to translator registration page...");
             request.getRequestDispatcher("translatorRegistrationForm.jsp").forward(request, response);
         }
     }

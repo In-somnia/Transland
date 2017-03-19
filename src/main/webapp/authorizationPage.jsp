@@ -26,9 +26,11 @@
     <div class="auth-field">
         <form id="authorization-form" action="authorizationController" method="post">
             <label for="j_login">${login}</label>
-            <input type="email" maxlength="30" required id="j_login" name="email" index="1" placeholder="${pslogin}"><div class="error-message hidden" id="error1"></div>
+            <input type="email" maxlength="30" required id="j_login" name="email" index="1" placeholder="${pslogin}">
+            <div class="error-message hidden" id="error1"></div>
             <label for="j_password">${pass}</label>
-            <input type="password" minlength="6" maxlength="30" required id="j_password" name="password" index="2" placeholder="${pspass}"><div class="error-message" id="error2"></div>
+            <input type="password" minlength="6" maxlength="30" required id="j_password" name="password" index="2" placeholder="${pspass}">
+            <div class="error-message" id="error2"></div>
         </form>
     </div>
     <div class="button">

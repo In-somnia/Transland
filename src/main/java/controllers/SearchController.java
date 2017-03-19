@@ -3,6 +3,8 @@ package controllers;
 
 import dao.DaoManager;
 import model.Translator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -18,7 +20,7 @@ import java.util.Map;
 
 @WebServlet("/SearchController")
 public class SearchController extends HttpServlet {
-
+    static final Logger LOG = LoggerFactory.getLogger(SearchController.class);
     private DaoManager daoManager;
 
     @Override
@@ -30,8 +32,11 @@ public class SearchController extends HttpServlet {
         response.setContentType("text/html");
         long id = (long) request.getSession().getAttribute("authorized");
         if ((id != -1) && (request.getSession().getAttribute("authorized") != null)) {
+            LOG.info("Authorization check is completed");
             boolean isRemoved = (boolean) request.getSession().getAttribute("removed");
+
             if (!isRemoved) {
+                LOG.info("Removal check is completed");
                 int resultsPerPage = 4;
                 int pageNumber = Integer.parseInt(request.getParameter("page"));
                 request.getSession().setAttribute("currentPage", pageNumber);
@@ -41,35 +46,33 @@ public class SearchController extends HttpServlet {
                 if (pageNumber != 0) {
                     curPageTranslators  = daoManager.getTranslatorDao().getCurrentPageTranslators
                             (resultsPerPage, pageNumber, allTranslatorIds);
-
                     request.getSession().setAttribute("thisPageTranslators", curPageTranslators);
                     request.getRequestDispatcher("WEB-INF/searchPage.jsp").forward(request, response);
-
                 } else {
                     Map<Object, Object> paramMap = new HashMap<>();
-                    String firstName = request.getParameter("firstName");
-                    String lastName = request.getParameter("lastName");
-                    String middleName = request.getParameter("middleName");
-                    String city = request.getParameter("city");
+                    String firstName = request.getParameter("firstName").replace("<", "&lt;").replace(">", "&gt;");
+                    String lastName = request.getParameter("lastName").replace("<", "&lt;").replace(">", "&gt;");
+                    String middleName = request.getParameter("middleName").replace("<", "&lt;").replace(">", "&gt;");
+                    String city = request.getParameter("city").replace("<", "&lt;").replace(">", "&gt;");
                     String cell = request.getParameter("cell");
-                    String email = request.getParameter("email");
+                    String email = request.getParameter("email").replace("<", "&lt;").replace(">", "&gt;");
 
-                    if (!firstName.isEmpty() && firstName.length() > 0 && firstName.length() < 21) {
+                    if (!firstName.isEmpty() && firstName.length() > 0 && firstName.length() < 20) {
                         paramMap.put("first_name", "\'" + firstName + "\'");
                     }
-                    if (!lastName.isEmpty() && lastName.length() > 0 && lastName.length() < 21) {
+                    if (!lastName.isEmpty() && lastName.length() > 0 && lastName.length() < 20) {
                         paramMap.put("last_name", "\'" + lastName + "\'");
                     }
-                    if (!middleName.isEmpty() && middleName.length() > 0 && middleName.length() < 21) {
+                    if (!middleName.isEmpty() && middleName.length() > 0 && middleName.length() < 20) {
                         paramMap.put("patronymic", "\'" + middleName + "\'");
                     }
-                    if (!city.isEmpty() && city.length() > 0 && city.length() < 21) {
+                    if (!city.isEmpty() && city.length() > 0 && city.length() < 20) {
                         paramMap.put("city", "\'" + city + "\'");
                     }
-                    if (!cell.isEmpty() && cell.length() > 0 && cell.length() < 17) {
+                    if (!cell.isEmpty() && cell.length() > 0 && cell.length() < 16) {
                         paramMap.put("cell", "\'" + cell + "\'");
                     }
-                    if (!email.isEmpty() && email.length() > 0 && email.length() < 31) {
+                    if (!email.isEmpty() && email.length() > 0 && email.length() < 30) {
                         paramMap.put("email", "\'" + email + "\'");
                     }
                     List<Long> foundIds = daoManager.getTranslatorDao().findColleaguesInDb(paramMap);
@@ -92,12 +95,13 @@ public class SearchController extends HttpServlet {
                 }
 
             } else {
+                LOG.warn("This user's page has been removed. Redirecting to a removed page...");
                 request.getRequestDispatcher("WEB-INF/removedPage.jsp").forward(request, response);
             }
         } else {
+            LOG.warn("Current user is not authorized. Access denied");
             request.getRequestDispatcher("authorizationPage.jsp").forward(request, response);
         }
-
     }
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doPost(request, response);
