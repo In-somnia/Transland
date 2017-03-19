@@ -1,9 +1,7 @@
 body {
     background: url("/images/welcomepage.jpg") no-repeat;
     background-size: cover;
-
 }
-
 form {
     width: 250px;
     border-radius: 10px;
@@ -16,13 +14,10 @@ form {
     color: bisque;
     border: 1px solid rosybrown;
 }
-
 label {
     display: block;
     margin-bottom: 5px;
-
 }
-
 input {
     width: 100%;
     padding: 5px;
@@ -32,7 +27,6 @@ input {
     border: 1px solid rosybrown;
     background-color: bisque;
     box-shadow: 0 2px 5px #404040;
-
 }
 button {
     padding: 10px;

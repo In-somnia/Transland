@@ -2,6 +2,7 @@ body {
     background: url("/images/welcomepage.jpg") no-repeat;
     background-size: cover;
 }
+
 h1 {
     font-family: "Comic Sans MS", "Arial Black", "serif";
     font-size: 70px;
