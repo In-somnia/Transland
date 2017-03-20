@@ -17,6 +17,10 @@ import java.sql.Statement;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
+/**
+ * Puts tables described in *.sql files into a database as the application is getting started
+ * and inserts the necessary data from the same type of files
+ */
 @WebListener
 public class DbInit implements ServletContextListener {
 

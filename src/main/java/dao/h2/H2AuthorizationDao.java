@@ -19,6 +19,13 @@ public class H2AuthorizationDao implements AuthorizationDao {
         this.dataSource = dataSource;
     }
 
+    /**
+     * Checks if the user's login exists in a database and whether it matches with the password
+     * the user has typed in the password field
+     * @param email is the login received from the authorization form
+     * @param password is the password received from the authorization form
+     * @return the id of an authorized user
+     */
     @Override
     public long checkCredentials(String email, String password) {
         String preparedQuery = "SELECT password, id FROM Translator WHERE email=?";

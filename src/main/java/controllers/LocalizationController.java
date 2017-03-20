@@ -11,7 +11,10 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Locale;
 
-
+/**
+ * Puts the locale chosen by a user into his/her session
+ * to provide the necessary interface until the user logs out
+ */
 @WebServlet("/LocalizationController")
 public class LocalizationController extends HttpServlet {
     static final Logger LOG = LoggerFactory.getLogger(LocalizationController.class);

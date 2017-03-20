@@ -22,7 +22,12 @@ public class H2TranslatorDao implements TranslatorDao {
     public H2TranslatorDao(DataSource dataSource) {
         this.dataSource = dataSource;
     }
-
+/**
+ *Allows to get a user from database table
+ *
+ * @param id is used to find out the necessary user
+ * @return the object of a Translator class (user model)
+**/
     @Override
     public Translator get(long id) {
 
@@ -71,6 +76,11 @@ public class H2TranslatorDao implements TranslatorDao {
         return translator;
     }
 
+    /**
+     * Puts an object of Translator into a database
+     * @param translator is the object from which the method gets the necessary parameters
+     * @return the id of the added object
+    **/
     @Override
     public long create(Translator translator) {
         String preparedQuery = "INSERT INTO Education (university, department, education_type, graduation_date) " +
@@ -118,6 +128,11 @@ public class H2TranslatorDao implements TranslatorDao {
         return translator.getId();
     }
 
+    /**
+     * Checks if the user's page has been deleted
+     * @param id defines the user whose page is to be checked
+     * @return true if the page has been deleted and vice versa
+     */
     @Override
     public boolean checkIsRemoved(long id) {
         boolean result = false;
@@ -138,12 +153,23 @@ public class H2TranslatorDao implements TranslatorDao {
         return result;
     }
 
+    /**
+     * puts the attribute showing that the user's page has been deleted into a database
+     * @param id defines the user
+     * @return the value of the added attribute (always true)
+     */
     public boolean removePage(long id) {
         boolean param = true;
         //noinspection ConstantConditions
         updateIsRemovedInDB(id, param);
         return true;
     }
+
+    /**
+     * puts the attribute showing that the user's page has been restored into a database
+     * @param id defines the user
+     * @return the value of the added attribute (always false)
+     */
     public boolean restorePage(long id) {
         boolean param = false;
         //noinspection ConstantConditions
@@ -151,6 +177,10 @@ public class H2TranslatorDao implements TranslatorDao {
         return false;
     }
 
+    /**
+     * Updates the changed profile data in a database
+     * @param translator is the object from which the necessary parameters are taken
+     */
     public void editTranslatorData(Translator translator) {
         String preparedTranslatorQuery ="UPDATE Translator SET city=?, cell=? WHERE id=?";
         try (Connection connection = dataSource.getConnection();
@@ -182,6 +212,11 @@ public class H2TranslatorDao implements TranslatorDao {
         }
     }
 
+    /**
+     * Allows to get id's of all the users in a database except the user's own id
+     * @param myId shows the id to be excluded from the list of returned id's
+     * @return the list of id's
+     */
     @Override
     public List<Long> getAllButSelfId(long myId) {
         List<Long> translatorIds = new ArrayList<>();
@@ -201,6 +236,12 @@ public class H2TranslatorDao implements TranslatorDao {
         return translatorIds;
     }
 
+    /**
+     * Counts the number of pages which is necessary to display all search results,
+     * taking into account the number of search data on one page
+     * @param list takes the list of id's meeting the user's search criteria
+     * @return the amount of pages necessary to display all found results
+     */
     public long pageCounter(List<Long> list)
     {
         long amountOfPages = 0;
@@ -217,6 +258,11 @@ public class H2TranslatorDao implements TranslatorDao {
         return amountOfPages;
     }
 
+    /**
+     * Allows to build a single database query from all search criteria the user has selected
+     * @param map is the number of separate search parameters and their values
+     * @return a list of id's matching the final query
+     */
     public List<Long> findColleaguesInDb(Map<Object, Object> map) {
         List<String> listOfQueries = new ArrayList<>();
         List<Long> listOfIds = new ArrayList<>();
@@ -248,6 +294,15 @@ public class H2TranslatorDao implements TranslatorDao {
          }
         return listOfIds;
     }
+
+    /**
+     * Calculates the numbers of users which are to be displayed on the given page,
+     * taking into consideration the amount of search data on every page and page number
+     * @param resultsPerPage is a constant showing the amount of search data on every page
+     * @param pageNumber is the page for which the result is to be calculated
+     * @param listOfIds all id's matching the user's search criteria
+     * @return models of users to be displayed on the given page, taken from a database
+     */
     public List<Translator> getCurrentPageTranslators(int resultsPerPage, int pageNumber, List<Long> listOfIds) {
         List<Translator> currentPageTranslators = new ArrayList<>();
         for (int i = 0; i < resultsPerPage; i++) {

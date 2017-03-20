@@ -11,7 +11,9 @@ import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 import javax.sql.DataSource;
 
-
+/**
+ * Provides the necessary init data for a database to get started
+ */
 @WebListener
 public class Injector implements ServletContextListener {
 

@@ -15,7 +15,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/**
+ * Redirects the user to a search page showing the information about all registered translators
+ * (before some search criteria have been chosen)
+ */
 @WebServlet("/SearchRedirectController")
 public class SearchRedirectController extends HttpServlet {
     static final Logger LOG = LoggerFactory.getLogger(SearchRedirectController.class);
