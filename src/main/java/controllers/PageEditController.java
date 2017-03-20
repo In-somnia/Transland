@@ -62,12 +62,12 @@ public class PageEditController extends HttpServlet {
             editDataCheck = true;
         }
 
-        if (experience.isEmpty() || department.length() < 1 || department.length() > 21)
+        if (experience.isEmpty() || department.length() < 1 || department.length() > 20)
         {
             editDataCheck = true;
         }
 
-        if (info.length() > 151)
+        if (info.length() > 150)
         {
             editDataCheck = true;
         }

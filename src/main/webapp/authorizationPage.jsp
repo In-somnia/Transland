@@ -22,7 +22,6 @@
 <fmt:message bundle="${auth}" key="placeholderpassword" var="pspass"/>
 <fmt:message bundle="${auth}" key="authorization" var="authorization"/>
 
-
     <div class="auth-field">
         <form id="authorization-form" action="authorizationController" method="post">
             <label for="j_login">${login}</label>
@@ -42,7 +41,6 @@
 <script>
     function checkAuthValid(){
         return checkAuthMap["email"] == true && checkAuthMap["password"] == true;
-
     }
 
     function submitAuth() {

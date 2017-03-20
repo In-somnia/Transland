@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="/WEB-INF/headerTag.tld" prefix="myHeader" %>
 <html>
 <head>
     <title>edit-page</title>
@@ -33,8 +34,7 @@
 <fmt:message bundle="${reg}" key="fulltime" var="full"/>
 <fmt:message bundle="${reg}" key="parttime" var="part"/>
 
-
-    <header><h1>Transland</h1></header>
+<header><h1><myHeader:transland/></h1></header>
     <main>
         <article class="profile">
             <section class="info">

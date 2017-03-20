@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="/WEB-INF/headerTag.tld" prefix="myHeader" %>
 <html>
 <head>
     <title>search-colleagues</title>
@@ -31,7 +32,7 @@
 <fmt:message bundle="${profile}" key="mypagebutton" var="mypage"/>
 <fmt:message bundle="${profile}" key="exitbutton" var="exit"/>
 
-<header><h1>Transland</h1></header>
+<header><h1><myHeader:transland/></h1></header>
 <main>
     <form id="exit-form" action="ProfileExitController" method="post">
         <button class="button" id="exit">${exit}</button>
