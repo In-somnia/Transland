@@ -50,6 +50,7 @@ public class SearchController extends HttpServlet {
                     request.getRequestDispatcher("WEB-INF/searchPage.jsp").forward(request, response);
                 } else {
                     Map<Object, Object> paramMap = new HashMap<>();
+                    List<Long> foundIds;
                     String firstName = request.getParameter("firstName").replace("<", "&lt;").replace(">", "&gt;");
                     String lastName = request.getParameter("lastName").replace("<", "&lt;").replace(">", "&gt;");
                     String middleName = request.getParameter("middleName").replace("<", "&lt;").replace(">", "&gt;");
@@ -75,7 +76,12 @@ public class SearchController extends HttpServlet {
                     if (!email.isEmpty() && email.length() > 0 && email.length() < 31) {
                         paramMap.put("email", "\'" + email + "\'");
                     }
-                    List<Long> foundIds = daoManager.getTranslatorDao().findColleaguesInDb(paramMap);
+                    if (!paramMap.isEmpty()) {
+                        foundIds = daoManager.getTranslatorDao().findColleaguesInDb(paramMap);
+                    } else {
+                        foundIds = daoManager.getTranslatorDao().getAllButSelfId(id);
+                    }
+
                     int currentPage = 1;
 
                     for (int i = 0; i < resultsPerPage; i++) {

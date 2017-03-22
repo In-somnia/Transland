@@ -281,6 +281,7 @@ public class H2TranslatorDao implements TranslatorDao {
         String finalQuery = querySum.trim().substring(0, querySum.length()-5);
 
         String query = "SELECT id FROM Translator WHERE " + finalQuery;
+
          try(Connection connection = dataSource.getConnection();
          Statement statement = connection.createStatement()) {
          ResultSet resultSet = statement.executeQuery(query);

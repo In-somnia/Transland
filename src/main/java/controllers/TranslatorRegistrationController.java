@@ -75,7 +75,7 @@ public class TranslatorRegistrationController extends HttpServlet {
         if (graduationYear < 1949 || graduationYear > 2022) {
             validationCheck = true;
         }
-        if (experience.isEmpty() || department.length() < 1 || department.length() > 21) {
+        if (experience.isEmpty() || experience.length() < 1 || experience.length() > 21) {
             validationCheck = true;
         }
         if (info.length() > 150) {
