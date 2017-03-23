@@ -1,13 +1,10 @@
 package dao.h2;
 
 import dao.DaoManager;
-import dao.TranslatorDao;
-
 import javax.sql.DataSource;
 
 
 public class H2DaoManager implements DaoManager {
-
     private DataSource dataSource;
 
     public H2DaoManager(DataSource dataSource) {

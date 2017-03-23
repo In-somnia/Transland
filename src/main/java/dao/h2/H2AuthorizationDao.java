@@ -11,10 +11,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class H2AuthorizationDao implements AuthorizationDao {
-    static final Logger LOG = LoggerFactory.getLogger(H2AuthorizationDao.class);
-
+    private static final Logger LOG = LoggerFactory.getLogger(H2AuthorizationDao.class);
     private DataSource dataSource;
 
+    @SuppressWarnings("WeakerAccess")
     public H2AuthorizationDao(DataSource dataSource) {
         this.dataSource = dataSource;
     }
@@ -30,23 +30,19 @@ public class H2AuthorizationDao implements AuthorizationDao {
     public long checkCredentials(String email, String password) {
         String preparedQuery = "SELECT password, id FROM Translator WHERE email=?";
         long result = -1;
+
         try (Connection connection = dataSource.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(preparedQuery)) {
             preparedStatement.setString(1, email);
             ResultSet rs = preparedStatement.executeQuery();
-            if (rs != null)
-            {
-                while(rs.next())
-                {
-                    if(rs.getString(1).equals(password))
-                    {
+            if (rs != null) {
+                while(rs.next()) {
+                    if(rs.getString(1).equals(password)) {
                         result = rs.getLong(2);
                     }
                 }
             }
-
-        } catch(SQLException e)
-        {
+        } catch(SQLException e) {
             LOG.debug("SQLException message:" + e.getMessage());
             LOG.debug("SQLException SQL state:" + e.getSQLState());
             LOG.debug("SQLException SQL error code:" + e.getErrorCode());

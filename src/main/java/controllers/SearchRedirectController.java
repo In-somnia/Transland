@@ -21,7 +21,7 @@ import java.util.List;
  */
 @WebServlet("/SearchRedirectController")
 public class SearchRedirectController extends HttpServlet {
-    static final Logger LOG = LoggerFactory.getLogger(SearchRedirectController.class);
+    private static final Logger LOG = LoggerFactory.getLogger(SearchRedirectController.class);
     private DaoManager daoManager;
 
     @Override
@@ -32,6 +32,7 @@ public class SearchRedirectController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html");
         long id = (long) request.getSession().getAttribute("authorized");
+
         if ((id != -1) && (request.getSession().getAttribute("authorized") != null)) {
             LOG.info("Authorization check is completed");
             boolean isRemoved = (boolean) request.getSession().getAttribute("removed");
@@ -40,7 +41,9 @@ public class SearchRedirectController extends HttpServlet {
                 int currentPage = 1;
                 List<Long> allTranslatorIds = daoManager.getTranslatorDao().getAllButSelfId(id);
                 List<Translator> currentPageTranslators = new ArrayList<>();
+
                 long numberOfPages = daoManager.getTranslatorDao().pageCounter(allTranslatorIds);
+
                 request.getSession().setAttribute("pages", numberOfPages);
                 request.getSession().setAttribute("currentPage", currentPage);
 
@@ -49,6 +52,7 @@ public class SearchRedirectController extends HttpServlet {
                     Translator translator = daoManager.getTranslatorDao().get(queriedId);
                     currentPageTranslators.add(translator);
                 }
+
                 request.getSession().setAttribute("thisPageTranslators", currentPageTranslators);
                 request.getRequestDispatcher("WEB-INF/searchPage.jsp").forward(request, response);
             } else {

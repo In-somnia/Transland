@@ -11,19 +11,19 @@ import java.io.IOException;
 
 @WebFilter(servletNames = "*")
 public class CharsetFilter implements Filter {
-    static final Logger LOG = LoggerFactory.getLogger(CharsetFilter.class);
+    private static final Logger LOG = LoggerFactory.getLogger(CharsetFilter.class);
+
     public void destroy() {
     }
 
     public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws ServletException, IOException {
         req.setCharacterEncoding("utf-8");
         resp.setCharacterEncoding("utf-8");
+
         LOG.info("Charset was set!");
         chain.doFilter(req, resp);
     }
 
     public void init(FilterConfig config) throws ServletException {
-
     }
-
 }

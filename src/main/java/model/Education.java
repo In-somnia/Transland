@@ -10,5 +10,4 @@ public class Education {
     private String department;
     private EducationForm educationType;
     private int graduationYear;
-
 }

@@ -20,7 +20,7 @@ import java.util.Map;
 
 @WebServlet("/SearchController")
 public class SearchController extends HttpServlet {
-    static final Logger LOG = LoggerFactory.getLogger(SearchController.class);
+    private static final Logger LOG = LoggerFactory.getLogger(SearchController.class);
     private DaoManager daoManager;
 
     @Override
@@ -76,6 +76,7 @@ public class SearchController extends HttpServlet {
                     if (!email.isEmpty() && email.length() > 0 && email.length() < 31) {
                         paramMap.put("email", "\'" + email + "\'");
                     }
+
                     if (!paramMap.isEmpty()) {
                         foundIds = daoManager.getTranslatorDao().findColleaguesInDb(paramMap);
                     } else {
@@ -93,6 +94,7 @@ public class SearchController extends HttpServlet {
                             foundColleagues.add(translator);
                         }
                     }
+
                     request.getSession().setAttribute("currentPage", currentPage);
                     long numberOfPages = daoManager.getTranslatorDao().pageCounter(foundIds);
                     request.getSession().setAttribute("pages", numberOfPages);

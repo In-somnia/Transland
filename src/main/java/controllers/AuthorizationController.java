@@ -15,7 +15,7 @@ import java.io.IOException;
 
 @WebServlet("/authorizationController")
 public class AuthorizationController extends HttpServlet {
-    static final Logger LOG = LoggerFactory.getLogger(AuthorizationController.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AuthorizationController.class);
     private DaoManager daoManager;
 
     @Override
@@ -31,23 +31,17 @@ public class AuthorizationController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/html");
-
         String login = req.getParameter("email").replace("<", "&lt;").replace(">", "&gt;");
         String password = req.getParameter("password").replace("<", "&lt;").replace(">", "&gt;");
         boolean invalidDataCheck = false;
 
-        if (login.isEmpty() || login.length() < 1 || login.length() > 31)
-        {
+        if (login.isEmpty() || login.length() < 1 || login.length() > 31) {
             invalidDataCheck = true;
         }
-
-        if (password.isEmpty() || password.length() < 6 || password.length() > 31)
-        {
+        if (password.isEmpty() || password.length() < 6 || password.length() > 31) {
             invalidDataCheck = true;
         }
-
-        if (invalidDataCheck)
-        {
+        if (invalidDataCheck) {
             LOG.warn("Invalid authorization data");
             req.getRequestDispatcher("authorizationPage.jsp").forward(req, resp);
         }
@@ -55,13 +49,11 @@ public class AuthorizationController extends HttpServlet {
         long userId = daoManager.getAuthorizationDao().checkCredentials(login, password);
 
         if (userId != -1) {
-
             req.getSession().setAttribute("authorized", userId);
             boolean isPageRemoved = daoManager.getTranslatorDao().checkIsRemoved(userId);
             req.getSession().setAttribute("removed", isPageRemoved);
             LOG.info("Authorization is completed");
             req.getRequestDispatcher("/TranslatorProfileController").forward(req, resp);
-
         } else {
             LOG.warn("Invalid login or password. Authorization denied");
             req.getRequestDispatcher("authorizationPage.jsp").forward(req, resp);

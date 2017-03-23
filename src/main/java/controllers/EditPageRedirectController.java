@@ -13,7 +13,7 @@ import java.io.IOException;
 
 @WebServlet("/EditPageRedirectController")
 public class EditPageRedirectController extends HttpServlet {
-    static final Logger LOG = LoggerFactory.getLogger(EditPageRedirectController.class);
+    private static final Logger LOG = LoggerFactory.getLogger(EditPageRedirectController.class);
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html");

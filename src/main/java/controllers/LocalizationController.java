@@ -17,11 +17,13 @@ import java.util.Locale;
  */
 @WebServlet("/LocalizationController")
 public class LocalizationController extends HttpServlet {
-    static final Logger LOG = LoggerFactory.getLogger(LocalizationController.class);
+    private static final Logger LOG = LoggerFactory.getLogger(LocalizationController.class);
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
         response.setContentType("text/html");
         String language = request.getParameter("language");
+
         if (language.equals("en")) {
             Locale enLocale = Locale.ENGLISH;
             LOG.info("Interface language has been changed to English");
@@ -32,6 +34,7 @@ public class LocalizationController extends HttpServlet {
             LOG.info("Interface language has been changed to Russian");
             request.getSession().setAttribute("locale", ruLocale);
         }
+
         request.getRequestDispatcher("index.jsp").forward(request, response);
     }
 

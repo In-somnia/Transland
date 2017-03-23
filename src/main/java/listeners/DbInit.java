@@ -45,8 +45,7 @@ public class DbInit implements ServletContextListener {
                     );
                 }
             statement.executeBatch();
-    } catch (SQLException e)
-        {
+    } catch (SQLException e) {
             System.err.println("SQLException message:" + e.getMessage());
             System.err.println("SQLException SQL state:" + e.getSQLState());
             System.err.println("SQLException SQL error code:" + e.getErrorCode());

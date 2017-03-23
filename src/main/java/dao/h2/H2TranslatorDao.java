@@ -1,5 +1,6 @@
 package dao.h2;
 
+
 import dao.TranslatorDao;
 import model.Education;
 import model.EducationForm;
@@ -13,12 +14,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-
 public class H2TranslatorDao implements TranslatorDao {
-    static final Logger LOG = LoggerFactory.getLogger(H2TranslatorDao.class);
-
+    private static final Logger LOG = LoggerFactory.getLogger(H2TranslatorDao.class);
     private DataSource dataSource;
-
+    @SuppressWarnings("WeakerAccess")
     public H2TranslatorDao(DataSource dataSource) {
         this.dataSource = dataSource;
     }
@@ -30,9 +29,7 @@ public class H2TranslatorDao implements TranslatorDao {
 **/
     @Override
     public Translator get(long id) {
-
         Translator translator = null;
-
         String preparedQuery = "SELECT * FROM Translator WHERE id=?";
 
         try (Connection connection = dataSource.getConnection();
@@ -67,7 +64,6 @@ public class H2TranslatorDao implements TranslatorDao {
                     translator.setIsRemoved(rs.getBoolean(13));
                 }
             }
-
         } catch (SQLException e) {
             LOG.debug("SQLException message:" + e.getMessage());
             LOG.debug("SQLException SQL state:" + e.getSQLState());
@@ -85,6 +81,7 @@ public class H2TranslatorDao implements TranslatorDao {
     public long create(Translator translator) {
         String preparedQuery = "INSERT INTO Education (university, department, education_type, graduation_date) " +
                 "VALUES (?, ?, ?, ?)";
+
         try (Connection connection = dataSource.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(preparedQuery,
                     PreparedStatement.RETURN_GENERATED_KEYS)) {
@@ -137,6 +134,7 @@ public class H2TranslatorDao implements TranslatorDao {
     public boolean checkIsRemoved(long id) {
         boolean result = false;
         String preparedQuery = "SELECT isRemoved FROM Translator WHERE id=?";
+
         try (Connection connection = dataSource.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(preparedQuery)) {
             preparedStatement.setLong(1, id);
@@ -183,6 +181,7 @@ public class H2TranslatorDao implements TranslatorDao {
      */
     public void editTranslatorData(Translator translator) {
         String preparedTranslatorQuery ="UPDATE Translator SET city=?, cell=? WHERE id=?";
+
         try (Connection connection = dataSource.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(preparedTranslatorQuery)) {
             preparedStatement.setString(1, translator.getCity());
@@ -221,6 +220,7 @@ public class H2TranslatorDao implements TranslatorDao {
     public List<Long> getAllButSelfId(long myId) {
         List<Long> translatorIds = new ArrayList<>();
         String query = "SELECT id FROM Translator where id!=?";
+
         try (Connection connection = dataSource.getConnection();
         PreparedStatement preparedstatement = connection.prepareStatement(query)) {
         preparedstatement.setLong(1, myId);
@@ -245,16 +245,17 @@ public class H2TranslatorDao implements TranslatorDao {
     public long pageCounter(List<Long> list)
     {
         long amountOfPages = 0;
-        if (list.size()%4 == 0)
-        {
+
+        if (list.size()%4 == 0) {
             amountOfPages = (long) list.size()/4;
-        } else if (list.size()%4 > 0)
-        {
+        } else if (list.size()%4 > 0) {
             amountOfPages = (long) list.size()/4 + 1;
         }
+
         if (amountOfPages < 1) {
             amountOfPages = 1;
         }
+
         return amountOfPages;
     }
 
@@ -266,28 +267,30 @@ public class H2TranslatorDao implements TranslatorDao {
     public List<Long> findColleaguesInDb(Map<Object, Object> map) {
         List<String> listOfQueries = new ArrayList<>();
         List<Long> listOfIds = new ArrayList<>();
-        for (Map.Entry<Object, Object> pair : map.entrySet())
-        {
+
+        for (Map.Entry<Object, Object> pair : map.entrySet()) {
             Object key = pair.getKey();
             Object value = pair.getValue();
 
             String queryParam = key + "=" + value;
             listOfQueries.add(queryParam);
         }
+
         String querySum = "";
+
         for (String query : listOfQueries) {
             querySum = querySum + query + " AND ";
         }
-        String finalQuery = querySum.trim().substring(0, querySum.length()-5);
 
+        String finalQuery = querySum.trim().substring(0, querySum.length()-5);
         String query = "SELECT id FROM Translator WHERE " + finalQuery;
 
          try(Connection connection = dataSource.getConnection();
          Statement statement = connection.createStatement()) {
          ResultSet resultSet = statement.executeQuery(query);
-         while (resultSet.next()) {
-            listOfIds.add(resultSet.getLong(1));
-         }
+             while (resultSet.next()) {
+                listOfIds.add(resultSet.getLong(1));
+             }
          }catch(SQLException e) {
              LOG.debug("SQLException message:" + e.getMessage());
              LOG.debug("SQLException SQL state:" + e.getSQLState());
@@ -306,6 +309,7 @@ public class H2TranslatorDao implements TranslatorDao {
      */
     public List<Translator> getCurrentPageTranslators(int resultsPerPage, int pageNumber, List<Long> listOfIds) {
         List<Translator> currentPageTranslators = new ArrayList<>();
+
         for (int i = 0; i < resultsPerPage; i++) {
             int colleagueId =  ((resultsPerPage*(pageNumber - 1)) + i);
             if (colleagueId <= listOfIds.size() - 1)
@@ -320,6 +324,7 @@ public class H2TranslatorDao implements TranslatorDao {
 
     private void updateIsRemovedInDB(long id, boolean param) {
         String preparedQuery = "UPDATE Translator SET isRemoved=? WHERE id=?";
+
         try (Connection connection = dataSource.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(preparedQuery)) {
             preparedStatement.setBoolean(1, param);
@@ -334,6 +339,7 @@ public class H2TranslatorDao implements TranslatorDao {
 
     private Education getEducationFromDb(ResultSet resultSet) {
         Education education = null;
+
         try {
             if (resultSet != null) {
                 while (resultSet.next()) {

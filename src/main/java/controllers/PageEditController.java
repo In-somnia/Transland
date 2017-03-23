@@ -18,7 +18,7 @@ import java.io.IOException;
 
 @WebServlet("/PageEditController")
 public class PageEditController extends HttpServlet {
-    static final Logger LOG = LoggerFactory.getLogger(PageEditController.class);
+    private static final Logger LOG = LoggerFactory.getLogger(PageEditController.class);
     private DaoManager daoManager;
 
     @Override
@@ -37,48 +37,33 @@ public class PageEditController extends HttpServlet {
         int graduationYear = Integer.parseInt(request.getParameter("gradYear"));
         String experience = request.getParameter("experience").trim().replace("<", "&lt;").replace(">", "&gt;");
         String info = request.getParameter("info").trim().replace("<", "&lt;").replace(">", "&gt;");
-
         boolean editDataCheck = false;
-        if (city.isEmpty() || city.length() < 1 || city.length() > 21)
-        {
-            editDataCheck = true;
-        }
-        if (cell.isEmpty() || cell.length() < 1 || cell.length() > 17)
-        {
-            editDataCheck = true;
-        }
-        if (university.isEmpty() || university.length() < 1 || university.length() > 51)
-        {
-            editDataCheck = true;
-        }
 
-        if (department.isEmpty() || department.length() < 1 || department.length() > 51)
-        {
+        if (city.isEmpty() || city.length() < 1 || city.length() > 21) {
             editDataCheck = true;
         }
-
-        if (graduationYear < 1949 || graduationYear > 2022)
-        {
+        if (cell.isEmpty() || cell.length() < 1 || cell.length() > 17) {
             editDataCheck = true;
         }
-
-        if (experience.isEmpty() || department.length() < 1 || department.length() > 20)
-        {
+        if (university.isEmpty() || university.length() < 1 || university.length() > 51) {
             editDataCheck = true;
         }
-
-        if (info.length() > 150)
-        {
+        if (department.isEmpty() || department.length() < 1 || department.length() > 51) {
             editDataCheck = true;
         }
-
+        if (graduationYear < 1949 || graduationYear > 2022) {
+            editDataCheck = true;
+        }
+        if (experience.isEmpty() || department.length() < 1 || department.length() > 20) {
+            editDataCheck = true;
+        }
+        if (info.length() > 150) {
+            editDataCheck = true;
+        }
         if (!editDataCheck) {
-
             long id = (long) request.getSession().getAttribute("authorized");
-
             if ((id != -1) && (request.getSession().getAttribute("authorized") != null)) {
                 boolean isRemoved = (boolean) request.getSession().getAttribute("removed");
-
                 if (!isRemoved) {
                     Translator translator = daoManager.getTranslatorDao().get(id);
                     translator.setCity(city);
@@ -94,6 +79,7 @@ public class PageEditController extends HttpServlet {
 
                     daoManager.getTranslatorDao().editTranslatorData(translator);
                     request.getSession().setAttribute("userData", translator);
+
                     LOG.info("Validation completed. User's data have been edited");
                     request.getRequestDispatcher("WEB-INF/translatorProfilePage.jsp").forward(request, response);
                 } else {

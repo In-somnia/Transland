@@ -16,7 +16,7 @@ import java.io.IOException;
 
 @WebServlet("/PageRemoveController")
 public class PageRemoveController extends HttpServlet {
-    static final Logger LOG = LoggerFactory.getLogger(PageRemoveController.class);
+    private static final Logger LOG = LoggerFactory.getLogger(PageRemoveController.class);
     private DaoManager daoManager;
 
     @Override
@@ -26,12 +26,13 @@ public class PageRemoveController extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html");
-
         long id = (long)request.getSession().getAttribute("authorized");
+
         if ((id != -1) && (request.getSession().getAttribute("authorized") != null)) {
             LOG.info("Authorization check is completed");
             boolean isRemoved = daoManager.getTranslatorDao().removePage(id);
             request.getSession().setAttribute("removed", isRemoved);
+
             LOG.info("This page has been removed successfully");
             request.getRequestDispatcher("WEB-INF/removedPage.jsp").forward(request, response);
         } else {

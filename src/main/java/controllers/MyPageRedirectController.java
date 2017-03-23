@@ -12,7 +12,7 @@ import java.io.IOException;
 
 @WebServlet("/MyPageRedirectController")
 public class MyPageRedirectController extends HttpServlet {
-    static final Logger LOG = LoggerFactory.getLogger(MyPageRedirectController.class);
+    private static final Logger LOG = LoggerFactory.getLogger(MyPageRedirectController.class);
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         long id = (long) request.getSession().getAttribute("authorized");

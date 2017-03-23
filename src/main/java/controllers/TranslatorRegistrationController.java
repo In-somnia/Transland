@@ -19,7 +19,7 @@ import java.io.IOException;
 
 @WebServlet("/TranslatorRegistrationController")
 public class TranslatorRegistrationController extends HttpServlet {
-    static final Logger LOG = LoggerFactory.getLogger(TranslatorRegistrationController.class);
+    private static final Logger LOG = LoggerFactory.getLogger(TranslatorRegistrationController.class);
     private DaoManager daoManager;
 
     @Override
@@ -28,7 +28,6 @@ public class TranslatorRegistrationController extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
         response.setContentType("text/html");
         LOG.info("Validating data...");
         String firstName = request.getParameter("firstName").trim().replace("<", "&lt;").replace(">", "&gt;");
@@ -64,11 +63,9 @@ public class TranslatorRegistrationController extends HttpServlet {
         if (email.isEmpty() || email.length() < 1 || email.length() > 31) {
             validationCheck = true;
         }
-
         if (university.isEmpty() || university.length() < 1 || university.length() > 51) {
             validationCheck = true;
         }
-
         if (department.isEmpty() || department.length() < 1 || department.length() > 51) {
             validationCheck = true;
         }
@@ -85,8 +82,8 @@ public class TranslatorRegistrationController extends HttpServlet {
             validationCheck = true;
         }
         if (!validationCheck) {
-
             Translator translator = new Translator();
+
             translator.setFirstName(firstName);
             translator.setLastName(lastName);
             translator.setPatronymic(middleName);
@@ -96,6 +93,7 @@ public class TranslatorRegistrationController extends HttpServlet {
             translator.setEmail(email);
 
             Education education = new Education();
+
             education.setUniversity(university);
             education.setDepartment(department);
             education.setEducationType(educationType);
@@ -109,6 +107,7 @@ public class TranslatorRegistrationController extends HttpServlet {
 
             long id = daoManager.getTranslatorDao().create(translator);
             request.setAttribute("id", id);
+
             LOG.info("Validation completed. Registration is successful");
             request.getRequestDispatcher("authorizationPage.jsp").forward(request, response);
         } else {

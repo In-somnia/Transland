@@ -17,11 +17,12 @@ import java.util.List;
 
 @WebServlet("/SeeProfileController")
 public class SeeProfileController extends HttpServlet {
-    static final Logger LOG = LoggerFactory.getLogger(SeeProfileController.class);
+    private static final Logger LOG = LoggerFactory.getLogger(SeeProfileController.class);
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html");
         long id = (long) request.getSession().getAttribute("authorized");
+
         if ((id != -1) && (request.getSession().getAttribute("authorized") != null)) {
             LOG.info("Authorization check is completed");
             boolean isRemoved = (boolean) request.getSession().getAttribute("removed");
@@ -30,6 +31,7 @@ public class SeeProfileController extends HttpServlet {
                 String receivedId = request.getParameter("id");
                 @SuppressWarnings("unchecked") List<Translator> pageResults =
                         (ArrayList)request.getSession().getAttribute("thisPageTranslators");
+
                 for (Translator translator : pageResults) {
 
                     if (String.valueOf(translator.getId()).equals(receivedId)) {
