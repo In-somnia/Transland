@@ -264,7 +264,7 @@ public class H2TranslatorDao implements TranslatorDao {
      * @param map is the number of separate search parameters and their values
      * @return a list of id's matching the final query
      */
-    public List<Long> findColleaguesInDb(Map<Object, Object> map) {
+    public List<Long> findColleaguesInDb(Map<Object, Object> map, long myId) {
         List<String> listOfQueries = new ArrayList<>();
         List<Long> listOfIds = new ArrayList<>();
 
@@ -289,7 +289,8 @@ public class H2TranslatorDao implements TranslatorDao {
          Statement statement = connection.createStatement()) {
          ResultSet resultSet = statement.executeQuery(query);
              while (resultSet.next()) {
-                listOfIds.add(resultSet.getLong(1));
+                 if (resultSet.getLong(1) != myId )
+                     listOfIds.add(resultSet.getLong(1));
              }
          }catch(SQLException e) {
              LOG.debug("SQLException message:" + e.getMessage());

@@ -78,10 +78,11 @@ public class SearchController extends HttpServlet {
                     }
 
                     if (!paramMap.isEmpty()) {
-                        foundIds = daoManager.getTranslatorDao().findColleaguesInDb(paramMap);
+                        foundIds = daoManager.getTranslatorDao().findColleaguesInDb(paramMap, id);
                     } else {
                         foundIds = daoManager.getTranslatorDao().getAllButSelfId(id);
                     }
+
 
                     int currentPage = 1;
 

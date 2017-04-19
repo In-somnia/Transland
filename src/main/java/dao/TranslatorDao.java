@@ -16,6 +16,6 @@ public interface TranslatorDao {
     List<Long> getAllButSelfId(long id);
     void editTranslatorData(Translator translator);
     long pageCounter(List<Long> list);
-    List<Long> findColleaguesInDb(Map<Object, Object> map);
+    List<Long> findColleaguesInDb(Map<Object, Object> map, long id);
     List<Translator> getCurrentPageTranslators(int resultsPerPage, int pageNumber, List<Long> listOfIds);
 }
